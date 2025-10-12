@@ -17,4 +17,14 @@
     <string name="register">Register</string>
     <string name="iniciar_sesi_n">Iniciar sesión</string>
     <string name="login">Login</string>
+    <string name="mao_makis">Mao Makis</string>
+    <string name="full_name">full_name</string>
+    <string name="correo">Correo</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="reg_strate">Regístrate</string>
+    <string name="ya_tienes_una_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="no_tienes_cuenta">¿No tienes cuenta?</string>
+    <string name="registrate">Registrate</string>
 </resources>
