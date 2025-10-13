@@ -12,14 +12,19 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_comida_diaria"
         android:name="com.example.maomakis.ui.gallery.ComidaDiariaFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/platos_del_d_a"
         tools:layout="@layout/comida_diaria_fragment" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_favorito"
         android:name="com.example.maomakis.ui.slideshow.FavoritoFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/favorito"
         tools:layout="@layout/fragment_favorito" />
+    <fragment
+        android:id="@+id/nav_mi_carta"
+        android:name="com.example.maomakis.MiCartaFragment"
+        android:label="@string/mi_carta"
+        tools:layout="@layout/fragment_mi_carta" />
 </navigation>
