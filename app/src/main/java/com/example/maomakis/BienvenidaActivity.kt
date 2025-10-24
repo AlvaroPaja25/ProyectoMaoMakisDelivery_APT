@@ -14,15 +14,13 @@ class BienvenidaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        // Comprobamos si el usuario ya ha iniciado sesión
+
         if (userViewModel.isUserLoggedIn()) {
-            // Si ya hay sesión, vamos directamente a MainActivity
+
             goToMainActivity()
-            return // Detenemos la ejecución de onCreate aquí
+            return
         }
 
-        // Si no hay sesión, mostramos la pantalla de bienvenida
         binding = ActivityBienvenidaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -41,6 +39,6 @@ class BienvenidaActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish() // Cerramos esta actividad para que no se pueda volver a ella
+        finish()
     }
 }
