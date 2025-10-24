@@ -34,4 +34,7 @@
     <string name="s_t_c">S T C</string>
     <string name="prueba_maomakis_com">prueba@maomakis.com</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="carrito">Carrito</string>
+    <string name="hacer_pedido">Hacer pedido</string>
+    <string name="total">Total</string>
 </resources>
