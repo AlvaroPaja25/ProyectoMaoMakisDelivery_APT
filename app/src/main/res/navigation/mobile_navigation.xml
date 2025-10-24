@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_favorito" />
     <fragment
         android:id="@+id/nav_mi_carta"
-        android:name="com.example.maomakis.MiCartaFragment"
+        android:name="com.example.maomakis.MiCarritoFragment"
         android:label="@string/mi_carta"
-        tools:layout="@layout/fragment_mi_carta" />
+        tools:layout="@layout/fragment_mi_carrito" />
 </navigation>
