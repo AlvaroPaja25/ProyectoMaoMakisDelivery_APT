@@ -23,10 +23,6 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun getIdUser(): Int {
-        return sessionManager.getAuthToken()
-    }
-
     override fun logout() {
         sessionManager.clearAuthToken()
     }

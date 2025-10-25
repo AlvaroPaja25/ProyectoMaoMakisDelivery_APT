@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.maomakis.domain.model.UserModel
 import com.example.maomakis.domain.repository.UserRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -21,10 +20,6 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
      */
     val loggedInUser: StateFlow<UserModel?> = userRepository.getLoggedInUser()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
-
-    fun getIdUser(): Int {
-        return userRepository.getIdUser()
-    }
 
     fun logout() {
         userRepository.logout()

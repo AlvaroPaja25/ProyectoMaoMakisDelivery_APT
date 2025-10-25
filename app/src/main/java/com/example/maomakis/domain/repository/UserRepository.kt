@@ -5,7 +5,6 @@ import com.example.maomakis.domain.model.UserModel
 
 interface UserRepository {
     fun getLoggedInUser(): Flow<UserModel?>
-    fun getIdUser(): Int
     fun logout()
 }
 
