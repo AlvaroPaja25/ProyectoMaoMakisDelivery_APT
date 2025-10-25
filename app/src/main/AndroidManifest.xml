@@ -35,6 +35,9 @@
             android:theme="@style/Theme.MaoMakis.NoActionBar">
         </activity>
 
+        <activity android:name=".ui.detail.ProductDetailActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
