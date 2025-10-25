@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.maomakis.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-//test yadi
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
