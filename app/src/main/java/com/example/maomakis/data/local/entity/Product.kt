@@ -13,11 +13,12 @@ import androidx.room.PrimaryKey
     indices = [Index("categoryId")]
 )
 data class Product(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+   @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val categoryId: Int,
-    val favorite: Int = 0, // 0 or 1
+    val favorite: Int = 0,
     val score: String = "0",
     val name: String,
+    val price: Double,
     val description: String?,
     val iconResName: String?
 )

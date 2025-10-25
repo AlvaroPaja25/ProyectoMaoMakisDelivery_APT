@@ -1,4 +1,4 @@
-package com.example.maomakis.ui.slideshow
+package com.example.maomakis.ui.fragment.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater

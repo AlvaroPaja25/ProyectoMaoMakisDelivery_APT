@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MaoMakis</string>
+    <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -10,31 +11,37 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="mi_app_de_delivery">Mi app de Delivery</string>
-    <string name="MAO_MAKIS" />
-    <string name="app_de_delivery">App de delivery</string>
-    <string name="register">Register</string>
-    <string name="iniciar_sesi_n">Iniciar sesión</string>
-    <string name="login">Login</string>
-    <string name="mao_makis">Mao Makis</string>
-    <string name="full_name">full_name</string>
-    <string name="correo">Correo</string>
-    <string name="nombre_completo">Nombre completo</string>
-    <string name="contrase_a">Contraseña</string>
-    <string name="registrarse">Registrarse</string>
-    <string name="reg_strate">Regístrate</string>
-    <string name="ya_tienes_una_cuenta">¿Ya tienes una cuenta?</string>
-    <string name="no_tienes_cuenta">¿No tienes cuenta?</string>
-    <string name="registrate">Registrate</string>
+    <string name="todo">TODO</string>
+    <string name="name">Name</string>
+    <string name="_5_0">5.0</string>
     <string name="platos_del_d_a">Platos del día</string>
     <string name="favorito">Favorito</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mi_carta">Mi Carta</string>
-    <string name="s_t_c">S T C</string>
-    <string name="prueba_maomakis_com">prueba@maomakis.com</string>
-    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="mi_carta">Mi carta</string>
     <string name="carrito">Carrito</string>
-    <string name="hacer_pedido">Hacer pedido</string>
     <string name="total">Total</string>
+    <string name="hacer_pedido">Hacer Pedido</string>
+    <string name="currency_format">S/ %.2f</string>
+
+
+<string name="mi_app_de_delivery">Mi app de Delivery</string>
+<string name="MAO_MAKIS" />
+<string name="app_de_delivery">App de delivery</string>
+<string name="register">Register</string>
+<string name="iniciar_sesi_n">Iniciar sesión</string>
+<string name="login">Login</string>
+<string name="mao_makis">Mao Makis</string>
+<string name="full_name">full_name</string>
+<string name="correo">Correo</string>
+<string name="nombre_completo">Nombre completo</string>
+<string name="contrase_a">Contraseña</string>
+<string name="registrarse">Registrarse</string>
+<string name="reg_strate">Regístrate</string>
+<string name="ya_tienes_una_cuenta">¿Ya tienes una cuenta?</string>
+<string name="no_tienes_cuenta">¿No tienes cuenta?</string>
+<string name="registrate">Registrate</string>
+
+<string name="hello_blank_fragment">Hello blank fragment</string>
+<string name="s_t_c">S T C</string>
+<string name="prueba_maomakis_com">prueba@maomakis.com</string>
+<string name="cerrar_sesi_n">Cerrar Sesión</string>
 </resources>

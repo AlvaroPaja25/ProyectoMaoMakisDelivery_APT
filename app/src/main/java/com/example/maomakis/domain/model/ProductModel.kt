@@ -7,7 +7,8 @@ data class ProductRegisterModel(
     val score: String,
     val name: String,
     val description: String?,
-    val iconResName: String?
+    val iconResName: String?,
+    val price: Double
 )
 
 data class ProductListModel(
@@ -17,5 +18,6 @@ data class ProductListModel(
     val score: String,
     val name: String,
     val description: String?,
-    val iconResName: Int?
+    val iconResName: Int?,
+    val price: Double
 )

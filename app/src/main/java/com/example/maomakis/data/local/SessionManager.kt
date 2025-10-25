@@ -2,6 +2,7 @@ package com.example.maomakis.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class SessionManager(context: Context) {
 
@@ -11,29 +12,19 @@ class SessionManager(context: Context) {
         const val USER_ID = "user_id"
     }
 
-    /**
-     * Guarda el ID del usuario que ha iniciado sesión.
-     */
     fun saveAuthToken(userId: Int) {
-        val editor = prefs.edit()
-        editor.putInt(USER_ID, userId)
-        editor.apply()
+        prefs.edit {
+            putInt(USER_ID, userId)
+        }
     }
 
-    /**
-     * Obtiene el ID del usuario que ha iniciado sesión.
-     * Devuelve -1 si no hay nadie logueado.
-     */
     fun getAuthToken(): Int {
         return prefs.getInt(USER_ID, -1)
     }
 
-    /**
-     * Cierra la sesión eliminando el ID del usuario.
-     */
     fun clearAuthToken() {
-        val editor = prefs.edit()
-        editor.remove(USER_ID)
-        editor.apply()
+        prefs.edit {
+            remove(USER_ID)
+        }
     }
 }
