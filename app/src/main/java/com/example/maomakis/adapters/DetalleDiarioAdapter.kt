@@ -20,7 +20,7 @@ class DetalleDiarioAdapter(
             .inflate(R.layout.detalle_comida_diaria_item, parent, false)
         return ViewHolder(view)
     }
-    //asdasd
+    //asdasdasdasd
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
