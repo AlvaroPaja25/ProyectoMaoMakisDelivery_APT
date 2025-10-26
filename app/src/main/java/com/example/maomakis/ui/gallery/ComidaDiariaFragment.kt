@@ -4,33 +4,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.maomakis.databinding.ComidaDiariaFragmentBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.maomakis.R
+import com.example.maomakis.adapters.ComidaDiariaAdapter
+import com.example.maomakis.model.ComidaDiariaModel
 
 class ComidaDiariaFragment : Fragment() {
 
-    private var _binding: ComidaDiariaFragmentBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var comidaDiariaModels: MutableList<ComidaDiariaModel>
+    private lateinit var comidaDiariaAdapter: ComidaDiariaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        val root = inflater.inflate(R.layout.comida_diaria_fragment, container, false)
 
-        _binding = ComidaDiariaFragmentBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        val textView: TextView = binding.textGallery
-        textView.text="Platos del Día"
+        recyclerView = root.findViewById(R.id.comida_diaria_rec)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        comidaDiariaModels = ArrayList()
+
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.breakfast, "Desayuno", "30% OFF", "Descripción Descripción","desayuno"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.lunch, "Almuerzo", "15% OFF", "Descripción Descripción","almuerzo"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.dinner, "Cena", "25% OFF", "Descripción Descripción","cena"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.sweets, "Dulces", "35% OFF", "Descripción Descripción","dulces"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.coffe, "Café", "30% OFF", "Descripción Descripción","café"))
+
+
+        comidaDiariaAdapter = ComidaDiariaAdapter(requireContext(), comidaDiariaModels)
+        recyclerView.adapter = comidaDiariaAdapter
+        comidaDiariaAdapter.notifyDataSetChanged()
+
         return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
