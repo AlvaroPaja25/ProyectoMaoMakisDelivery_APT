@@ -1,29 +1,29 @@
 package com.example.maomakis.data.repository
 
+import com.example.maomakis.data.local.SessionManager
 import com.example.maomakis.data.local.dao.UserDAO
+import com.example.maomakis.data.mappers.toModel
 import com.example.maomakis.domain.model.UserModel
 import com.example.maomakis.domain.repository.UserRepository
-import com.example.maomakis.domain.model.UserRegisterModel
-import com.example.maomakis.data.mappers.toEntity
-import com.example.maomakis.data.mappers.toModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
-
 class UserRepositoryImpl(
-    private val dao: UserDAO
+    private val dao: UserDAO,
+    private val sessionManager: SessionManager
 ) : UserRepository {
-    override suspend fun insertOrUpdate(user: UserRegisterModel) {
-        dao.insert(user.toEntity())
+
+    override fun getLoggedInUser(): Flow<UserModel?> {
+        val userId = sessionManager.getAuthToken()
+        return if (userId != -1) {
+            dao.getUserById(userId).map { it?.toModel() }
+        } else {
+            flowOf(null)
+        }
     }
 
-    override suspend fun delete(userId: Int) {
-        dao.delete(userId)
+    override fun logout() {
+        sessionManager.clearAuthToken()
     }
-
-    override fun getUser(userId: Int): Flow<UserModel?> =
-        dao.getUserById(userId).map { it?.toModel() }
-
-    override fun getAllUsers(): Flow<List<UserModel>> =
-        dao.getAllUsers().map { list -> list.map { it.toModel() } }
 }

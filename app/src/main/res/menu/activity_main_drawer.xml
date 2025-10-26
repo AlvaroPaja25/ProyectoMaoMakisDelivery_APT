@@ -17,7 +17,7 @@
             android:icon="@drawable/outline_favorite_24"
             android:title="@string/favorito" />
         <item
-            android:id="@+id/nav_mi_carta"
+            android:id="@+id/nav_mi_carrito"
             android:icon="@drawable/outline_shopping_cart_24"
             android:title="@string/mi_carta" />
     </group>

@@ -1,4 +1,4 @@
-package com.example.maomakis
+package com.example.maomakis.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,16 +12,29 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.maomakis.R
 import com.example.maomakis.databinding.ActivityMainBinding
 import com.example.maomakis.databinding.NavHeaderMainBinding
+import com.example.maomakis.ui.factory.ViewModelFactory
+import com.example.maomakis.ui.viewmodel.CarritoViewModel
+import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
-
+import kotlin.getValue
 
 class MainActivity : AppCompatActivity() {
 
-    private val userVModel: UserViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels {
+        ViewModelFactory(application, this)
+    }
+    private val carritoViewModel: CarritoViewModel by viewModels {
+        ViewModelFactory(application, this)
+    }
+    private val productViewModel: ProductViewModel by viewModels {
+        ViewModelFactory(application, this)
+    }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingNavHeader: NavHeaderMainBinding
@@ -38,14 +51,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         lifecycleScope.launch {
-            userVModel.loggedInUser.collect { user ->
+            userViewModel.loggedInUser.collect { user ->
                 if (user != null) {
-                    bindingNavHeader.textViewUser.text = user.email
+                    bindingNavHeader.txtViewUserName.text = user.displayName
+                    bindingNavHeader.txtViewUserEmail.text = user.email
                 }
             }
         }
         binding.buttonLogout.setOnClickListener{
-            userVModel.logout()
+            userViewModel.logout()
             goToBienvenidaActivity()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -55,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_comida_diaria, R.id.nav_favorito, R.id.nav_mi_carta
+                R.id.nav_home, R.id.nav_comida_diaria, R.id.nav_favorito, R.id.nav_mi_carrito
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -75,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
     private fun goToBienvenidaActivity() {
-        val intent = Intent(this, BienvenidaActivity::class.java)
+        val intent = Intent(this, AuthActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish() // Cerramos esta actividad para que no se pueda volver a ella
