@@ -16,7 +16,7 @@ class ComidaDiariaAdapter(
     private val context: Context,
     private val list: List<ComidaDiariaModel>
 ) : RecyclerView.Adapter<ComidaDiariaAdapter.ViewHolder>() {
-
+    //asdasd
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.comida_diaria_item, parent, false)

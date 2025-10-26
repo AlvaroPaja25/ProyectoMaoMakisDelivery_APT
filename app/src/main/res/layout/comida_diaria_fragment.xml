@@ -6,7 +6,7 @@
     android:background="@color/mediumGray"
     android:layout_height="match_parent"
     tools:context=".ui.gallery.ComidaDiariaFragment">
-
+//
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/comida_diaria_rec"
         android:layout_width="match_parent"

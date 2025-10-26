@@ -12,7 +12,7 @@ import com.example.maomakis.adapters.ComidaDiariaAdapter
 import com.example.maomakis.model.ComidaDiariaModel
 
 class ComidaDiariaFragment : Fragment() {
-
+    //A
     private lateinit var recyclerView: RecyclerView
     private lateinit var comidaDiariaModels: MutableList<ComidaDiariaModel>
     private lateinit var comidaDiariaAdapter: ComidaDiariaAdapter

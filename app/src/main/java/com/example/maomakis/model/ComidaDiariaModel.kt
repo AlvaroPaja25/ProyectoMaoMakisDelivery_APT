@@ -1,7 +1,7 @@
 package com.example.maomakis.model
 
 data class ComidaDiariaModel(
-
+    //
     val imagen: Int,
     val nombre: String,
     val descuento: String,

@@ -13,7 +13,7 @@ import com.example.maomakis.adapters.DetalleDiarioAdapter
 import com.example.maomakis.model.DetalleDiarioModel
 
 class DetalleComidaDiariaActivity : AppCompatActivity() {
-
+    //asd
     private lateinit var recyclerView: RecyclerView
     private lateinit var detalleDiarioModelList: MutableList<DetalleDiarioModel>
     private lateinit var diarioAdapter: DetalleDiarioAdapter
