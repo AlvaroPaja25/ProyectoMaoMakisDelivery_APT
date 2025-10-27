@@ -61,4 +61,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.annotation)
+    implementation("com.makeramen:roundedimageview:2.3.0")
 }
