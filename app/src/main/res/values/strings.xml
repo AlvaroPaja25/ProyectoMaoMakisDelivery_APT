@@ -38,9 +38,18 @@
     <string name="product_name">Product Name</string>
     <string name="search_your_food">Search your Food</string>
 
-    <string name="order_now_text">Order Now</string>
+    <string name="order_now_text">Hacer pedido</string>
 
     <string name="desc_back_button">Botón para regresar a la pantalla anterior</string>
     <string name="desc_detail_image">Imagen principal del producto</string>
     <string name="desc_small_image">Imagen en miniatura del producto</string>
+    <string name="todo">TODO</string>
+    <string name="carrito">Carrito</string>
+    <string name="total">Total</string>
+    <string name="hacer_pedido">Hacer pedido</string>
+    <string name="currency_format">S/ %1$.2f</string>
+    <string name="que_deseas_hoy">¿Qué deseas hoy?</string>
+    <string name="buscar_tu_comida">Buscar tu comida</string>
+    <string name="hola">Hola</string>
+    <string name="agregar_al_carrito">Agregar al carrito</string>
 </resources>

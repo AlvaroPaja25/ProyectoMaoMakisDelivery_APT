@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,11 @@ import android.content.Intent
 import com.example.maomakis.ui.detail.ProductDetailActivity
 // ¡CAMBIO CLAVE! Agrega el import para tu Bottom Sheet
 import com.example.maomakis.ui.detail.ProductDetailBottomSheet
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.maomakis.ui.factory.ViewModelFactory
+import com.example.maomakis.ui.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment(), UpdateVerticalRec, OnVerItemClickListener {
@@ -38,12 +44,18 @@ class HomeFragment : Fragment(), UpdateVerticalRec, OnVerItemClickListener {
     private lateinit var homeVerModelList: MutableList<HomeVerModel>
     private lateinit var homeVerAdapter: HomeVerAdapter
 
+    private lateinit var greetingTextView: TextView
+    private val userViewModel: UserViewModel by activityViewModels {
+        ViewModelFactory(requireActivity().application, requireActivity())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+        greetingTextView = root.findViewById(R.id.textView7)
         homeHorizontalRec = root.findViewById(R.id.home_hor_rec)
         homeHorModelList = ArrayList<HomeHordModel>()
         homeHorModelList.add(HomeHordModel(R.drawable.pizza, "Pizza"))
@@ -79,6 +91,20 @@ class HomeFragment : Fragment(), UpdateVerticalRec, OnVerItemClickListener {
         homeVerticalRec.isNestedScrollingEnabled = false
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycleScope.launch {
+            userViewModel.loggedInUser.collect { user ->
+                val greeting = if (user != null && user.displayName.isNotBlank()) {
+                    "Hola ${user.displayName}"
+                } else {
+                    getString(R.string.hola)
+                }
+                greetingTextView.text = greeting
+            }
+        }
     }
 
     override fun callback(

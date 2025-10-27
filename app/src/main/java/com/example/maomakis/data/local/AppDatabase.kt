@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [User::class, Category::class, Product::class, Carrito::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -34,7 +34,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "maomakis_app.db"
-                ).addCallback(AppDatabaseCallback(context))
+                ).fallbackToDestructiveMigration()
+                    .addCallback(AppDatabaseCallback(context))
                     .build()
                     .also { INSTANCE = it }
             }
@@ -46,6 +47,16 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE?.let {
                 CoroutineScope(Dispatchers.IO).launch {
                     prepopulateDatabase(it)
+                }
+            }
+        }
+
+        override fun onOpen(db: SupportSQLiteDatabase) {
+            super.onOpen(db)
+            // Aseguramos que existan datos mínimos si por alguna razón la BD quedó vacía
+            INSTANCE?.let { database ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    ensureSeeded(database)
                 }
             }
         }
@@ -82,6 +93,19 @@ abstract class AppDatabase : RoomDatabase() {
                 Product(id = 5,categoryId = 4,score = "8", name = "Gyoza de Cerdo (5u)", price = 10.00, description = "Empanaditas japonesas al vapor.", iconResName = "man")
             )
             productDao.insertAll(products)
+        }
+
+        private suspend fun ensureSeeded(database: AppDatabase) {
+            val categoryDao = database.categoryDao()
+            val productDao = database.productDao()
+
+            // Si faltan categorías o productos, reinsertamos los datos base
+            val categoriesCount = categoryDao.count()
+            val productsCount = productDao.count()
+
+            if (categoriesCount == 0 || productsCount == 0) {
+                prepopulateDatabase(database)
+            }
         }
     }
 }

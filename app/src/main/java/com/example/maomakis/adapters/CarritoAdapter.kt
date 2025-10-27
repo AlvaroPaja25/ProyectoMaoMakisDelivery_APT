@@ -35,6 +35,6 @@ class CarritoAdapter(private val list: List<CarritoModel>) : RecyclerView.Adapte
         val imageView: ImageView = itemView.findViewById(R.id.item_image)
         val name: TextView = itemView.findViewById(R.id.item_name)
         val price: TextView = itemView.findViewById(R.id.item_price)
-        val rating: TextView = itemView.findViewById(R.id.item_rating)
+        val rating: TextView = itemView.findViewById(R.id.item_score)
     }
 }

@@ -7,8 +7,9 @@ import com.example.maomakis.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.Flow
 
-class ProductViewModel(productRepository: ProductRepository) : ViewModel() {
+class ProductViewModel(private val productRepository: ProductRepository) : ViewModel() {
 
     /**
      * Flujo que emite la lista completa de productos desde el repositorio.
@@ -20,4 +21,7 @@ class ProductViewModel(productRepository: ProductRepository) : ViewModel() {
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    fun getProductsByCategory(categoryId: Int): Flow<List<ProductListModel>> =
+        productRepository.getProductsByCategory(categoryId)
 }
