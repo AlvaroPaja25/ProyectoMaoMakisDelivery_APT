@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
-import com.example.maomakis.databinding.ItemProductBinding
+import com.example.maomakis.databinding.HomeVerticalItemBinding
 import com.example.maomakis.domain.model.ProductListModel
 
 class ProductAdapter(
-    private val onAddToCartClicked: (ProductListModel) -> Unit
+    private val onAddToCartClicked: (ProductListModel) -> Unit,
+    private val onItemClicked: (ProductListModel) -> Unit
 ) : ListAdapter<ProductListModel, ProductAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = HomeVerticalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -22,20 +23,19 @@ class ProductAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: HomeVerticalItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductListModel) {
-            binding.productName.text = item.name
-            binding.productCategory.text = item.category
-            binding.productDescription.text = item.description
-            binding.productPrice.text = itemView.context.getString(R.string.currency_format, item.price)
+            binding.name.text = item.name
+            binding.rating.text = item.score
+            binding.timing.text = itemView.context.getString(R.string._10_00_23_00)
+            binding.price.text = itemView.context.getString(R.string.currency_format, item.price)
 
             item.iconResName?.let {
-                binding.productImage.setImageResource(it)
-            } ?: binding.productImage.setImageResource(R.drawable.ic_launcher_foreground) // Imagen por defecto
+                binding.verImg.setImageResource(it)
+            } ?: binding.verImg.setImageResource(R.drawable.ic_launcher_foreground)
 
-            binding.buttonAddToCart.setOnClickListener {
-                onAddToCartClicked(item)
-            }
+            // Click en tarjeta para ver detalle (imagen incluida, no agregar al carrito aquí)
+            binding.root.setOnClickListener { onItemClicked(item) }
         }
     }
 

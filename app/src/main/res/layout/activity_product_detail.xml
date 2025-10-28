@@ -37,22 +37,23 @@
         android:id="@+id/detail_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/order_now_text"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintTop_toBottomOf="@id/order_now_text"
+        app:layout_constraintVertical_bias="0.28"
+        tools:layout_editor_absoluteX="0dp">
 
         <ImageView
             android:id="@+id/small_detail_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
             android:layout_marginStart="24dp"
             android:contentDescription="@string/desc_small_image"
-            tools:src="@drawable/hamburger1"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:src="@drawable/hamburger1" />
 
         <TextView
             android:id="@+id/detail_title"
@@ -60,64 +61,66 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/amita"
-            tools:text="Burger"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/small_detail_image"
-            app:layout_constraintTop_toTopOf="@id/small_detail_image" />
+            app:layout_constraintTop_toTopOf="@id/small_detail_image"
+            tools:text="Burger" />
 
         <TextView
             android:id="@+id/detail_timing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="10:00 - 23:00"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:layout_marginTop="4dp"
             android:drawableStart="@drawable/baseline_access_time_filled_24"
             android:drawablePadding="4dp"
-            android:layout_marginTop="4dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/detail_title"
-            app:layout_constraintTop_toBottomOf="@id/detail_title" />
+            app:layout_constraintTop_toBottomOf="@id/detail_title"
+            tools:text="10:00 - 23:00" />
 
         <TextView
             android:id="@+id/detail_rating"
             android:layout_width="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/baseline_star_24"
             android:drawablePadding="4dp"
-            tools:text="5.0"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/detail_title"
-            app:layout_constraintTop_toBottomOf="@id/detail_timing" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_timing"
+            app:layout_constraintTop_toBottomOf="@+id/detail_title"
+            tools:text="5.0" />
 
         <TextView
             android:id="@+id/detail_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="$ 4.9"
+            android:layout_marginStart="16dp"
             android:textColor="@color/red"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/detail_rating"
-            app:layout_constraintTop_toTopOf="@id/detail_rating"
-            app:layout_constraintBottom_toBottomOf="@id/detail_rating" />
+            app:layout_constraintBottom_toTopOf="@+id/detail_title"
+            app:layout_constraintStart_toEndOf="@+id/small_detail_image"
+            tools:text="$ 4.9" />
 
         <Button
             android:id="@+id/add_to_cart_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="Add To Cart"
-            android:textSize="12sp"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/red"
+            android:paddingHorizontal="16dp"
+            android:text="@string/agregar_al_carrito"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/small_detail_image"
-            app:layout_constraintBottom_toBottomOf="@id/small_detail_image" />
+            app:layout_constraintHorizontal_bias="0.513"
+            app:layout_constraintStart_toEndOf="@+id/small_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/detail_timing" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

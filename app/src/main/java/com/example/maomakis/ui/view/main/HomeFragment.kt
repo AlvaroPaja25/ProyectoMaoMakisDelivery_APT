@@ -1,4 +1,4 @@
-package com.example.maomakis.ui.view.main
+package com.example.maomakis.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maomakis.databinding.FragmentHomeBinding
+import com.example.maomakis.ui.adapter.ProductAdapter
+import com.example.maomakis.ui.adapter.CategoryAdapter
 import com.example.maomakis.ui.view.adapter.ProductAdapter
 import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
+import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import kotlinx.coroutines.launch
+import com.example.maomakis.R
+import com.example.maomakis.ui.detail.ProductDetailBottomSheet
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +33,11 @@ class HomeFragment : Fragment() {
         ViewModelFactory(requireActivity().application, requireActivity())
     }
 
+    // ViewModel para categorías
+    private val categoryViewModel: CategoryViewModel by activityViewModels {
+        ViewModelFactory(requireActivity().application, requireActivity())
+    }
+
     // ViewModel compartido para saber quién es el usuario.
     private val userViewModel: UserViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
@@ -36,6 +46,7 @@ class HomeFragment : Fragment() {
     // ViewModel para el carrito
     private lateinit var carritoViewModel: CarritoViewModel
     private lateinit var productAdapter: ProductAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
 
 
     override fun onCreateView(
@@ -52,11 +63,13 @@ class HomeFragment : Fragment() {
         val factory = ViewModelFactory(requireActivity().application, this)
         carritoViewModel = ViewModelProvider(this, factory)[CarritoViewModel::class.java]
 
-        setupRecyclerView()
-        observeProducts()
+        setupProductRecycler()
+        setupCategoryRecycler()
+        observeCategories()
+        observeUserGreeting()
     }
 
-    private fun setupRecyclerView() {
+    private fun setupProductRecycler() {
         productAdapter = ProductAdapter(
             onAddToCartClicked = { product ->
                 val user = userViewModel.loggedInUser.value
@@ -66,19 +79,70 @@ class HomeFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Inicia sesión para añadir productos", Toast.LENGTH_SHORT).show()
                 }
+            },
+            onItemClicked = { product ->
+                val detailFragment = ProductDetailBottomSheet.newInstance(
+                    product.name,
+                    getString(R.string.currency_format, product.price),
+                    product.iconResName ?: R.drawable.ic_launcher_foreground,
+                    product.id
+                )
+                detailFragment.show(childFragmentManager, detailFragment.tag)
             }
         )
 
-        binding.productsRecyclerView.apply {
+        binding.homeVerRec.apply {
             adapter = productAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun observeProducts() {
+    private fun setupCategoryRecycler() {
+        categoryAdapter = CategoryAdapter(onCategoryClicked = { category ->
+            // Al seleccionar categoría, cargar productos filtrados
+            viewLifecycleOwner.lifecycleScope.launch {
+                productViewModel.getProductsByCategory(category.id).collect { products ->
+                    productAdapter.submitList(products)
+                }
+            }
+        })
+
+        binding.homeHorRec.apply {
+            adapter = categoryAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun observeCategories() {
         viewLifecycleOwner.lifecycleScope.launch {
-            productViewModel.products.collect { products ->
-                productAdapter.submitList(products)
+            categoryViewModel.categories.collect { categories ->
+                categoryAdapter.submitList(categories)
+
+                // Si hay categorías, precargar productos de la primera
+                if (categories.isNotEmpty()) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        productViewModel.getProductsByCategory(categories.first().id).collect { products ->
+                            productAdapter.submitList(products)
+                        }
+                    }
+                } else {
+                    // Si no hay categorías, puedes mostrar todos los productos
+                    productAdapter.submitList(emptyList())
+                }
+            }
+        }
+    }
+
+    private fun observeUserGreeting() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            userViewModel.loggedInUser.collect { user ->
+                val greeting = if (user != null && user.displayName.isNotBlank()) {
+                    "Hola ${user.displayName}"
+                } else {
+                    getString(com.example.maomakis.R.string.hola)
+                }
+                // textView7 es el título grande en Home
+                binding.textView7.text = greeting
             }
         }
     }

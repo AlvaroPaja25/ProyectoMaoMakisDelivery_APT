@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/mediumGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.main.ComidaDiariaFragment">
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:drawableEnd="@drawable/baseline_search_24"
             android:drawablePadding="9dp"
             android:fontFamily="@font/amita"
-            android:hint="@string/search_your_food"
+            android:hint="@string/buscar_tu_comida"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -46,7 +46,7 @@
             android:layout_margin="6dp"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/amarante"
-            android:text="Hello Ali"
+            android:text="@string/hola"
             android:textColor="@color/white"
             android:textSize="35sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:fontFamily="@font/amarante"
-            android:text="What do you want?="
+            android:text="@string/que_deseas_hoy"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />

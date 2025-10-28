@@ -34,6 +34,7 @@ interface CarritoDAO {
         FROM carrito c 
         INNER JOIN product p ON c.productId = p.id 
         WHERE c.userId = :userId
+        ORDER BY c.productId ASC
     """)
     fun getCartItemsForUser(userId: Int): Flow<List<CarritoWithProductData>>
 

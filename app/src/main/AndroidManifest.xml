@@ -29,6 +29,11 @@
         <activity android:name=".ui.detail.ProductDetailActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.DetalleComidaDiariaActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaoMakis.NoActionBar" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

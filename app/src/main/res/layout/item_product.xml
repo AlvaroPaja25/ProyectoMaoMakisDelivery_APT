@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/favorito"
+            android:contentDescription="@string/agregar_al_carrito"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@id/product_price"
             app:layout_constraintEnd_toEndOf="parent"

@@ -9,6 +9,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.example.maomakis.MaoMakisApplication
 import com.example.maomakis.ui.viewmodel.AuthViewModel
 import com.example.maomakis.ui.viewmodel.CarritoViewModel
+import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
 
@@ -34,6 +35,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(ProductViewModel::class.java) -> {
                 ProductViewModel(app.productRepository) as T
+            }
+            modelClass.isAssignableFrom(CategoryViewModel::class.java) -> {
+                CategoryViewModel(app.categoryRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

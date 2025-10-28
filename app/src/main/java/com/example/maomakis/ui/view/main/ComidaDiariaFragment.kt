@@ -1,103 +1,45 @@
-package com.example.maomakis.ui.home
+package com.example.maomakis.ui.fragment.gallery
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.maomakis.models.HomeHordModel
-import com.example.maomakis.adapters.HomeHorAdapter
 import com.example.maomakis.R
-import com.example.maomakis.adapters.HomeVerAdapter
-import com.example.maomakis.adapters.UpdateVerticalRec
-import com.example.maomakis.adapters.OnVerItemClickListener
-import com.example.maomakis.models.HomeVerModel
-import java.util.ArrayList
+import com.example.maomakis.adapters.ComidaDiariaAdapter
+import com.example.maomakis.model.ComidaDiariaModel
 
-import android.content.Intent
-import com.example.maomakis.ui.detail.ProductDetailActivity
-// ¡CAMBIO CLAVE! Agrega el import para tu Bottom Sheet
-import com.example.maomakis.ui.detail.ProductDetailBottomSheet
-
-
-class HomeFragment : Fragment(), UpdateVerticalRec, OnVerItemClickListener {
-
-    //... (Variables y onCreateView)
-
-    //HomeHorizontal
-    private lateinit var homeHorizontalRec: RecyclerView
-    private lateinit var homeHorModelList: MutableList<HomeHordModel>
-    private lateinit var homeHorAdapter: HomeHorAdapter
-
-
-    //HomeVertical
-    private lateinit var homeVerticalRec: RecyclerView
-    private lateinit var homeVerModelList: MutableList<HomeVerModel>
-    private lateinit var homeVerAdapter: HomeVerAdapter
+class ComidaDiariaFragment : Fragment() {
+    //Aasdasdasdasd
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var comidaDiariaModels: MutableList<ComidaDiariaModel>
+    private lateinit var comidaDiariaAdapter: ComidaDiariaAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val root = inflater.inflate(R.layout.comida_diaria_fragment, container, false)
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        homeHorizontalRec = root.findViewById(R.id.home_hor_rec)
-        homeHorModelList = ArrayList<HomeHordModel>()
-        homeHorModelList.add(HomeHordModel(R.drawable.pizza, "Pizza"))
-        homeHorModelList.add(HomeHordModel(R.drawable.hamburger, "Hamburger"))
-        homeHorModelList.add(HomeHordModel(R.drawable.fried_potatoes, "Fries"))
-        homeHorModelList.add(HomeHordModel(R.drawable.ice_cream, "Ice Cream"))
-        homeHorModelList.add(HomeHordModel(R.drawable.sandwich, "Sandwich"))
+        recyclerView = root.findViewById(R.id.comida_diaria_rec)
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
-        homeHorAdapter = HomeHorAdapter(this, requireActivity(), homeHorModelList)
-        homeHorizontalRec.adapter = homeHorAdapter
+        comidaDiariaModels = ArrayList()
 
-        homeHorizontalRec.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        homeHorizontalRec.setHasFixedSize(true)
-        homeHorizontalRec.isNestedScrollingEnabled = false
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.breakfast, "Desayuno", "30% OFF", "Descripción Descripción","desayuno"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.lunch, "Almuerzo", "15% OFF", "Descripción Descripción","almuerzo"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.dinner, "Cena", "25% OFF", "Descripción Descripción","cena"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.sweets, "Dulces", "35% OFF", "Descripción Descripción","dulces"))
+        comidaDiariaModels.add(ComidaDiariaModel(R.drawable.coffe, "Café", "30% OFF", "Descripción Descripción","café"))
 
 
-        homeVerticalRec = root.findViewById(R.id.home_ver_rec)
-        homeVerModelList = ArrayList<HomeVerModel>()
-
-        homeVerAdapter = HomeVerAdapter(requireContext(), homeVerModelList, this)
-        homeVerticalRec.adapter = homeVerAdapter
-
-        homeVerticalRec.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL,
-            false
-        )
-        homeVerticalRec.setHasFixedSize(true)
-        homeVerticalRec.isNestedScrollingEnabled = false
+        comidaDiariaAdapter = ComidaDiariaAdapter(requireContext(), comidaDiariaModels)
+        recyclerView.adapter = comidaDiariaAdapter
+        comidaDiariaAdapter.notifyDataSetChanged()
 
         return root
-    }
-
-    override fun callback(
-        position: Int,
-        list: ArrayList<HomeVerModel>
-    ) {
-        homeVerModelList.clear()
-        homeVerModelList.addAll(list)
-        homeVerAdapter.notifyDataSetChanged()
-    }
-
-    override fun onVerItemClick(item: HomeVerModel) {
-
-        val detailFragment = ProductDetailBottomSheet.newInstance(
-            item.name,
-            item.price,
-            item.image
-        )
-
-        detailFragment.show(childFragmentManager, detailFragment.tag)
     }
 }
