@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.maomakis.ui.main.HomeFragment"
+        android:name="com.example.maomakis.ui.view.main.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home_log" />
 
     <fragment
         android:id="@+id/nav_comida_diaria"
-        android:name="com.example.maomakis.ui.fragment.gallery.ComidaDiariaFragment"
+        android:name="com.example.maomakis.ui.view.main.ComidaDiariaFragment"
         android:label="@string/platos_del_d_a"
-        tools:layout="@layout/comida_diaria_fragment" />
+        tools:layout="@layout/fragment_comida_diaria" />
 
     <fragment
         android:id="@+id/nav_favorito"
-        android:name="com.example.maomakis.ui.fragment.slideshow.FavoritoFragment"
+        android:name="com.example.maomakis.ui.view.main.favorito.FavoritoFragment"
         android:label="@string/favorito"
         tools:layout="@layout/fragment_favorito" />
     <fragment
         android:id="@+id/nav_mi_carrito"
-        android:name="com.example.maomakis.ui.main.MiCarritoFragment"
+        android:name="com.example.maomakis.ui.view.main.MiCarritoFragment"
         android:label="@string/mi_carta"
-        tools:layout="@layout/fragment_mi_carrito" />
+        tools:layout="@layout/fragment_carrito" />
 </navigation>

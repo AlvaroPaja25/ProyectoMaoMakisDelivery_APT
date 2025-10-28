@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.maomakis.ui.auth.StartFragment"
+        android:name="com.example.maomakis.ui.view.auth.StartFragment"
         android:label="Menú"
         tools:layout="@layout/fragment_auth_start" >
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.maomakis.ui.auth.LoginFragment"
+        android:name="com.example.maomakis.ui.view.auth.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_auth_login">
         <action
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.maomakis.ui.auth.RegisterFragment"
+        android:name="com.example.maomakis.ui.view.auth.RegisterFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_auth_register">
         <action
