@@ -24,4 +24,9 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
 
     fun getProductsByCategory(categoryId: Int): Flow<List<ProductListModel>> =
         productRepository.getProductsByCategory(categoryId)
+
+
+    suspend fun toggleFavorite(productId: Int, isFavorite: Boolean) {
+        productRepository.setFavorite(productId, isFavorite)
+    }
 }

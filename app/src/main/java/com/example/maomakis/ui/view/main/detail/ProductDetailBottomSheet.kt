@@ -1,37 +1,38 @@
 package com.example.maomakis.ui.view.main.detail
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.maomakis.R
 import com.example.maomakis.databinding.ActivityProductDetailBinding
-import com.example.maomakis.domain.model.ProductListModel
 import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 class ProductDetailBottomSheet : BottomSheetDialogFragment() {
     private var _binding: ActivityProductDetailBinding? = null
     private val binding get() = _binding!!
 
+    private val userViewModel: UserViewModel by activityViewModels {
+        ViewModelFactory(requireActivity().application, requireActivity())
+    }
     private lateinit var carritoViewModel: CarritoViewModel
-    private lateinit var userViewModel: UserViewModel
     private lateinit var productViewModel: ProductViewModel
-
-    private var productId = 0
-    private var productName = ""
-    private var productPrice = ""
-    private var productImage = 0
-    private var isFavorite = false
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = ActivityProductDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,47 +42,51 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
 
         val factory = ViewModelFactory(requireActivity().application, this)
         carritoViewModel = ViewModelProvider(this, factory)[CarritoViewModel::class.java]
-        userViewModel = ViewModelProvider(requireActivity(), factory)[UserViewModel::class.java]
         productViewModel = ViewModelProvider(requireActivity(), factory)[ProductViewModel::class.java]
 
-        arguments?.let {
-            productId = it.getInt("PRODUCT_ID")
-            productName = it.getString("PRODUCT_NAME") ?: ""
-            productPrice = it.getString("PRODUCT_PRICE") ?: ""
-            productImage = it.getInt("PRODUCT_IMAGE")
-            isFavorite = it.getBoolean("PRODUCT_FAVORITE", false)
-        }
 
-        binding.smallDetailImage.setImageResource(productImage)
+        val args = arguments
+        val productImageResId = args?.getInt("PRODUCT_IMAGE", R.drawable.dinner) ?: R.drawable.dinner
+        val productName = args?.getString("PRODUCT_NAME") ?: "Pizza Error" // Default para debug
+        val productPrice = args?.getString("PRODUCT_PRICE") ?: "$0.00"
+        val productId = args?.getInt("PRODUCT_ID", -1) ?: -1
+        var isFavorite = args?.getBoolean("PRODUCT_FAVORITE", false) ?: false
+
+        binding.smallDetailImage.setImageResource(productImageResId)
         binding.detailTitle.text = productName
         binding.detailPrice.text = productPrice
 
-        // --- Botón de favorito ---
-        updateFavoriteIcon()
+        binding.detailRating.text = "5.0"
+        binding.detailTiming.text = "10:00 - 23:00"
+
+        updateFavoriteIcon(isFavorite)
         binding.favoriteButton.setOnClickListener {
             val user = userViewModel.loggedInUser.value
             if (user != null) {
                 isFavorite = !isFavorite
-                updateFavoriteIcon()
-                productViewModel.toggleFavorite(user.id, productId)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    productViewModel.toggleFavorite(productId, isFavorite)
+                }
+                updateFavoriteIcon(isFavorite)
             } else {
                 Toast.makeText(requireContext(), "Inicia sesión para usar favoritos", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // --- Botón de agregar al carrito ---
         binding.addToCartButton.setOnClickListener {
             val user = userViewModel.loggedInUser.value
-            if (user != null) {
+            if (productId > 0 && user != null) {
                 carritoViewModel.addProduct(user.id, productId)
                 Toast.makeText(requireContext(), "$productName añadido al carrito", Toast.LENGTH_SHORT).show()
+                dismiss()
             } else {
                 Toast.makeText(requireContext(), "Inicia sesión para añadir productos", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
-    private fun updateFavoriteIcon() {
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
         val iconRes = if (isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
         binding.favoriteButton.setImageResource(iconRes)
     }
@@ -92,14 +97,15 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(product: ProductListModel) = ProductDetailBottomSheet().apply {
-            arguments = Bundle().apply {
-                putInt("PRODUCT_ID", product.id)
-                putString("PRODUCT_NAME", product.name)
-                putString("PRODUCT_PRICE", product.price)
-                putInt("PRODUCT_IMAGE", product.image)
-                putBoolean("PRODUCT_FAVORITE", product.isFavorite)
+        fun newInstance(name: String, price: String, imageResId: Int, productId: Int = -1, isFavorite: Boolean = false) =
+            ProductDetailBottomSheet().apply {
+                arguments = Bundle().apply {
+                    putString("PRODUCT_NAME", name)
+                    putString("PRODUCT_PRICE", price)
+                    putInt("PRODUCT_IMAGE", imageResId)
+                    putInt("PRODUCT_ID", productId)
+                    putBoolean("PRODUCT_FAVORITE", isFavorite)
+                }
             }
-        }
     }
 }

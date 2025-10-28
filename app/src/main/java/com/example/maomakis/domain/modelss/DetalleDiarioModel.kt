@@ -1,4 +1,4 @@
-package com.example.maomakis.model
+package com.example.maomakis.domain.modelss
 
 data class DetalleDiarioModel(
     //asdasda

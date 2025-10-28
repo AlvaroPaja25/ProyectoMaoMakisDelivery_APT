@@ -1,4 +1,4 @@
-package com.example.maomakis.adapters
+package com.example.maomakis.ui.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
-import com.example.maomakis.model.DetalleDiarioModel
+import com.example.maomakis.domain.modelss.DetalleDiarioModel
 
 class DetalleDiarioAdapter(
     private val context: Context,

@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maomakis.databinding.FragmentHomeBinding
-import com.example.maomakis.ui.adapter.ProductAdapter
 import com.example.maomakis.ui.adapter.CategoryAdapter
 import com.example.maomakis.ui.view.adapter.ProductAdapter
 import com.example.maomakis.ui.factory.ViewModelFactory
@@ -21,7 +20,7 @@ import com.example.maomakis.ui.viewmodel.UserViewModel
 import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import kotlinx.coroutines.launch
 import com.example.maomakis.R
-import com.example.maomakis.ui.detail.ProductDetailBottomSheet
+import com.example.maomakis.ui.view.main.detail.ProductDetailBottomSheet
 
 class HomeFragment : Fragment() {
 

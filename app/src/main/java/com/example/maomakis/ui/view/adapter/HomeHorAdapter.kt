@@ -1,7 +1,6 @@
-package com.example.maomakis.adapters
+package com.example.maomakis.ui.view.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
 
-import com.example.maomakis.models.HomeHordModel
-import com.example.maomakis.models.HomeVerModel
+import com.example.maomakis.domain.model.HomeHordModel
+import com.example.maomakis.domain.model.HomeVerModel
 
 class HomeHorAdapter(
     private val updateVerticalRec: UpdateVerticalRec,

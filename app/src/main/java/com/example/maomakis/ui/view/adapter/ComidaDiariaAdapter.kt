@@ -1,4 +1,4 @@
-package com.example.maomakis.adapters
+package com.example.maomakis.ui.view.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
-import com.example.maomakis.model.ComidaDiariaModel
-import com.example.maomakis.activities.DetalleComidaDiariaActivity
+import com.example.maomakis.domain.modelss.ComidaDiariaModel
+import com.example.maomakis.ui.view.DetalleComidaDiariaActivity
 
 class ComidaDiariaAdapter(
     private val context: Context,

@@ -1,6 +1,6 @@
-package com.example.maomakis.adapters
+package com.example.maomakis.ui.view.adapter
 
-import com.example.maomakis.models.HomeVerModel
+import com.example.maomakis.domain.model.HomeVerModel
 
 interface UpdateVerticalRec {
 

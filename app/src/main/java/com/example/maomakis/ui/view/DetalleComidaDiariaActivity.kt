@@ -1,16 +1,14 @@
-package com.example.maomakis.activities
+package com.example.maomakis.ui.view
 
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
-import com.example.maomakis.adapters.DetalleDiarioAdapter
-import com.example.maomakis.model.DetalleDiarioModel
+import com.example.maomakis.domain.modelss.DetalleDiarioModel
+import com.example.maomakis.ui.view.adapter.DetalleDiarioAdapter
 
 class DetalleComidaDiariaActivity : AppCompatActivity() {
     //asdasdasd
@@ -44,7 +42,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 detalleDiarioModelList.add(
                     DetalleDiarioModel(
                         R.drawable.fav2,
@@ -53,7 +52,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 detalleDiarioModelList.add(
                     DetalleDiarioModel(
                         R.drawable.fav3,
@@ -62,7 +62,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 diarioAdapter.notifyDataSetChanged()
             }
         }
@@ -79,7 +80,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 detalleDiarioModelList.add(
                     DetalleDiarioModel(
                         R.drawable.s2,
@@ -88,7 +90,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 detalleDiarioModelList.add(
                     DetalleDiarioModel(
                         R.drawable.s3,
@@ -97,7 +100,8 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
                         "4.4",
                         "40",
                         "10 a 9"
-                    ))
+                    )
+                )
                 diarioAdapter.notifyDataSetChanged()
             }
         }

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
-import com.example.maomakis.adapters.ComidaDiariaAdapter
-import com.example.maomakis.model.ComidaDiariaModel
+import com.example.maomakis.ui.view.adapter.ComidaDiariaAdapter
+import com.example.maomakis.domain.modelss.ComidaDiariaModel
 
 class ComidaDiariaFragment : Fragment() {
     //Aasdasdasdasd

@@ -26,11 +26,8 @@
             android:theme="@style/Theme.MaoMakis.NoActionBar">
         </activity>
 
-        <activity android:name=".ui.detail.ProductDetailActivity"
-            android:exported="false" />
-
         <activity
-            android:name=".activities.DetalleComidaDiariaActivity"
+            android:name=".ui.view.DetalleComidaDiariaActivity"
             android:exported="false"
             android:theme="@style/Theme.MaoMakis.NoActionBar" />
 

@@ -1,4 +1,4 @@
-package com.example.maomakis.models
+package com.example.maomakis.domain.model
 
 data class HomeVerModel(
 

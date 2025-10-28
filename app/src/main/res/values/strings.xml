@@ -38,9 +38,6 @@
     <string name="hacer_pedido">Hacer Pedido</string>
     <string name="currency_format">S/ %.2f</string>
 
-    <string name="MAO_MAKIS" />
-
-    <string name="full_name">full_name</string>
 
     <string name="contrase_a">Contraseña</string>
     <string name="registrarse">Registrarse</string>
@@ -53,9 +50,7 @@
     <string name="s_t_c">S T C</string>
     <string name="prueba_maomakis_com">prueba@maomakis.com</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
-    <string name="tu_comida_favorita">Tu comida favorita</string>
-    <string name="ver_m_s">Ver más</string>
-    <string name="_10_delicias_de_fin_de_semana_ndinner_recipes">10 delicias de fin de semana \nDinner Recipes</string>
+
     <string name="_10_00_23_00">10:00 - 23:00</string>
     <string name="product_name">Product Name</string>
     <string name="search_your_food">Search your Food</string>
@@ -65,11 +60,7 @@
     <string name="desc_back_button">Botón para regresar a la pantalla anterior</string>
     <string name="desc_detail_image">Imagen principal del producto</string>
     <string name="desc_small_image">Imagen en miniatura del producto</string>
-    <string name="todo">TODO</string>
-    <string name="carrito">Carrito</string>
-    <string name="total">Total</string>
-    <string name="hacer_pedido">Hacer pedido</string>
-    <string name="currency_format">S/ %1$.2f</string>
+
     <string name="que_deseas_hoy">¿Qué deseas hoy?</string>
     <string name="buscar_tu_comida">Buscar tu comida</string>
     <string name="hola">Hola</string>
