@@ -23,7 +23,6 @@ class CarritoRepositoryImpl(
     override suspend fun addProductToCart(userId: Int, productId: Int) {
         val currentItem = dao.getItem(userId, productId)
         val newQuantity = currentItem?.cant?.plus(1) ?: 1
-
         dao.upsertItem(Carrito(userId = userId, productId = productId, cant = newQuantity))
     }
 

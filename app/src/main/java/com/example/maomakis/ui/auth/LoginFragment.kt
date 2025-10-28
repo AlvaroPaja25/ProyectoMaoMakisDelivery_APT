@@ -9,22 +9,22 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.maomakis.R
-import com.example.maomakis.databinding.FragmentLoginBinding
+import com.example.maomakis.databinding.FragmentAuthLoginBinding
 import com.example.maomakis.domain.result.LoginResult
 import com.example.maomakis.ui.MainActivity
 import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.viewmodel.AuthViewModel
 import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_auth_login) {
 
     private val authViewModel: AuthViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
     }
-    private lateinit var b: FragmentLoginBinding
+    private lateinit var b: FragmentAuthLoginBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        b = FragmentLoginBinding.bind(view)
+        b = FragmentAuthLoginBinding.bind(view)
 
         setupObservers()
 

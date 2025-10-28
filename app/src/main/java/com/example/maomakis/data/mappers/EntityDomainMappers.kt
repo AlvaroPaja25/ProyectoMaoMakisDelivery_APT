@@ -5,7 +5,6 @@ import android.content.Context
 import com.example.maomakis.data.local.dao.CarritoWithProductData
 import com.example.maomakis.data.local.entity.*
 import com.example.maomakis.domain.model.*
-
 /**
  * Convierte una entidad User de la base de datos a un UserModel para la UI.
  */
@@ -20,7 +19,6 @@ fun UserRegisterModel.toEntity() = User(
     email = email,
     password = password
 )
-
 @SuppressLint("DiscouragedApi")
 fun CarritoWithProductData.toModel(context: Context): CarritoModel {
     val iconResId = iconResName?.let {
@@ -36,7 +34,6 @@ fun CarritoWithProductData.toModel(context: Context): CarritoModel {
         score = score
     )
 }
-
 @SuppressLint("DiscouragedApi")
 fun Category.toListModel(context: Context): CategoryListModel {
     val iconResId = iconResName?.let {
@@ -45,14 +42,13 @@ fun Category.toListModel(context: Context): CategoryListModel {
     }
     return CategoryListModel(id, name, description, iconResId)
 }
-
 fun CategoryRegisterModel.toEntity() = Category(id, name, description, iconResName)
-
-
 @SuppressLint("DiscouragedApi")
 fun Product.toListModel(context: Context): ProductListModel {
     val iconResId = iconResName?.let {
-        val resourceId = context.resources.getIdentifier(it, "drawable", context.packageName)
+        val resourceId = context.resources.getIdentifier(
+            it, "drawable", context.packageName
+        )
         if (resourceId == 0) null else resourceId
     }
     return ProductListModel(

@@ -13,7 +13,7 @@ import com.example.maomakis.domain.repository.ProductRepository
 import com.example.maomakis.domain.repository.UserRepository
 
 class MaoMakisApplication : Application() {
-
+//sdasd
     private val db by lazy { AppDatabase.getInstance(this) }
 
     val authRepository: AuthRepository by lazy {

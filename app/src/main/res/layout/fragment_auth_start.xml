@@ -13,13 +13,12 @@
         android:contentDescription="@string/todo"
         android:foreground="@drawable/foreground_design"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg2"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"/>
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lobster"
         android:text="@string/mi_app_de_delivery"
@@ -33,7 +32,7 @@
         app:layout_constraintVertical_bias=".4" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_de_delivery"
         android:textAlignment="center"
@@ -62,7 +61,7 @@
 
     <TextView
         android:id="@+id/goToLogin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/iniciar_sesi_n"

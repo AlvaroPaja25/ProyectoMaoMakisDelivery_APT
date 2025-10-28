@@ -21,7 +21,10 @@ import androidx.room.Index
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["userId"]), Index(value = ["productId"])]
+    indices = [
+        Index(value = ["userId"]),
+        Index(value = ["productId"])
+    ]
 )
 data class Carrito(
     val userId: Int,

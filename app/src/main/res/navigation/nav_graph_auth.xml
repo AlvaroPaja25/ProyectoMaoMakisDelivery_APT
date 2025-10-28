@@ -9,7 +9,7 @@
         android:id="@+id/startFragment"
         android:name="com.example.maomakis.ui.auth.StartFragment"
         android:label="Menú"
-        tools:layout="@layout/fragment_start" >
+        tools:layout="@layout/fragment_auth_start" >
         <action
             android:id="@+id/action_start_to_login"
             app:destination="@id/loginFragment"
@@ -36,7 +36,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.maomakis.ui.auth.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/fragment_auth_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
@@ -52,7 +52,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.maomakis.ui.auth.RegisterFragment"
         android:label="Registro"
-        tools:layout="@layout/fragment_register">
+        tools:layout="@layout/fragment_auth_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"

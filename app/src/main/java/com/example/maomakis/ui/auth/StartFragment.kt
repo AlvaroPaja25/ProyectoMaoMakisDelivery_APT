@@ -7,14 +7,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.maomakis.R
-import com.example.maomakis.databinding.FragmentStartBinding
+import com.example.maomakis.databinding.FragmentAuthStartBinding
 
-class StartFragment : Fragment(R.layout.fragment_start) {
+class StartFragment : Fragment(R.layout.fragment_auth_start) {
 
-    private lateinit var b: FragmentStartBinding
+    private lateinit var b: FragmentAuthStartBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        b = FragmentStartBinding.bind(view)
+        b = FragmentAuthStartBinding.bind(view)
 
         b.goToLogin.setOnClickListener {
             findNavController().navigate(R.id.action_start_to_login)
