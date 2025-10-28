@@ -52,4 +52,13 @@
     <string name="s_t_c">S T C</string>
     <string name="prueba_maomakis_com">prueba@maomakis.com</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="_10_00_23_00">10:00 - 23:00</string>
+    <string name="product_name">Product Name</string>
+    <string name="search_your_food">Search your Food</string>
+
+    <string name="order_now_text">Order Now</string>
+
+    <string name="desc_back_button">Botón para regresar a la pantalla anterior</string>
+    <string name="desc_detail_image">Imagen principal del producto</string>
+    <string name="desc_small_image">Imagen en miniatura del producto</string>
 </resources>

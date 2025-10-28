@@ -12,4 +12,10 @@
     <color name="darkGray">#27282c</color>
     <color name="mediumGray">#262523</color>
 
+
+    <color name="red">#FFD40000</color>
+    <color name="dark_gray">#FF363636</color>
+    <color name="dark_background">#FF1C1C1C</color>
+
+
 </resources>

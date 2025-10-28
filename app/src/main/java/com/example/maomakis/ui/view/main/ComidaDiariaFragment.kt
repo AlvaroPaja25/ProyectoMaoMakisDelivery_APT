@@ -1,36 +1,103 @@
-package com.example.maomakis.ui.view.main
+package com.example.maomakis.ui.home
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import com.example.maomakis.databinding.FragmentComidaDiariaBinding
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.maomakis.models.HomeHordModel
+import com.example.maomakis.adapters.HomeHorAdapter
+import com.example.maomakis.R
+import com.example.maomakis.adapters.HomeVerAdapter
+import com.example.maomakis.adapters.UpdateVerticalRec
+import com.example.maomakis.adapters.OnVerItemClickListener
+import com.example.maomakis.models.HomeVerModel
+import java.util.ArrayList
 
-class ComidaDiariaFragment : Fragment() {
+import android.content.Intent
+import com.example.maomakis.ui.detail.ProductDetailActivity
+// ¡CAMBIO CLAVE! Agrega el import para tu Bottom Sheet
+import com.example.maomakis.ui.detail.ProductDetailBottomSheet
 
-    private var _binding: FragmentComidaDiariaBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+class HomeFragment : Fragment(), UpdateVerticalRec, OnVerItemClickListener {
+
+    //... (Variables y onCreateView)
+
+    //HomeHorizontal
+    private lateinit var homeHorizontalRec: RecyclerView
+    private lateinit var homeHorModelList: MutableList<HomeHordModel>
+    private lateinit var homeHorAdapter: HomeHorAdapter
+
+
+    //HomeVertical
+    private lateinit var homeVerticalRec: RecyclerView
+    private lateinit var homeVerModelList: MutableList<HomeVerModel>
+    private lateinit var homeVerAdapter: HomeVerAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
-        _binding = FragmentComidaDiariaBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        val textView: TextView = binding.textGallery
-        textView.text="Platos del Día"
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        homeHorizontalRec = root.findViewById(R.id.home_hor_rec)
+        homeHorModelList = ArrayList<HomeHordModel>()
+        homeHorModelList.add(HomeHordModel(R.drawable.pizza, "Pizza"))
+        homeHorModelList.add(HomeHordModel(R.drawable.hamburger, "Hamburger"))
+        homeHorModelList.add(HomeHordModel(R.drawable.fried_potatoes, "Fries"))
+        homeHorModelList.add(HomeHordModel(R.drawable.ice_cream, "Ice Cream"))
+        homeHorModelList.add(HomeHordModel(R.drawable.sandwich, "Sandwich"))
+
+        homeHorAdapter = HomeHorAdapter(this, requireActivity(), homeHorModelList)
+        homeHorizontalRec.adapter = homeHorAdapter
+
+        homeHorizontalRec.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.HORIZONTAL,
+            false
+        )
+        homeHorizontalRec.setHasFixedSize(true)
+        homeHorizontalRec.isNestedScrollingEnabled = false
+
+
+        homeVerticalRec = root.findViewById(R.id.home_ver_rec)
+        homeVerModelList = ArrayList<HomeVerModel>()
+
+        homeVerAdapter = HomeVerAdapter(requireContext(), homeVerModelList, this)
+        homeVerticalRec.adapter = homeVerAdapter
+
+        homeVerticalRec.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL,
+            false
+        )
+        homeVerticalRec.setHasFixedSize(true)
+        homeVerticalRec.isNestedScrollingEnabled = false
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun callback(
+        position: Int,
+        list: ArrayList<HomeVerModel>
+    ) {
+        homeVerModelList.clear()
+        homeVerModelList.addAll(list)
+        homeVerAdapter.notifyDataSetChanged()
+    }
+
+    override fun onVerItemClick(item: HomeVerModel) {
+
+        val detailFragment = ProductDetailBottomSheet.newInstance(
+            item.name,
+            item.price,
+            item.image
+        )
+
+        detailFragment.show(childFragmentManager, detailFragment.tag)
     }
 }
