@@ -1,50 +1,46 @@
-package com.example.maomakis.ui.main
+package com.example.maomakis.ui.view.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.maomakis.R
 import com.example.maomakis.databinding.FragmentHomeBinding
-import com.example.maomakis.ui.adapter.CategoryAdapter
-import com.example.maomakis.ui.view.adapter.ProductAdapter
+import com.example.maomakis.databinding.HomeVerticalItemBinding
+import com.example.maomakis.ui.view.adapter.CategoryAdapter
 import com.example.maomakis.ui.factory.ViewModelFactory
+import com.example.maomakis.ui.view.adapter.ProductoAdapter
+import com.example.maomakis.ui.view.main.detail.ProductDetailBottomSheet
+import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
-import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import kotlinx.coroutines.launch
-import com.example.maomakis.R
-import com.example.maomakis.ui.view.main.detail.ProductDetailBottomSheet
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    // ViewModel para obtener la lista de productos.
+    // ViewModels
     private val productViewModel: ProductViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
     }
-
-    // ViewModel para categorías
     private val categoryViewModel: CategoryViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
     }
-
-    // ViewModel compartido para saber quién es el usuario.
     private val userViewModel: UserViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
     }
-
-    // ViewModel para el carrito
     private lateinit var carritoViewModel: CarritoViewModel
-    private lateinit var productAdapter: ProductAdapter
+
+    // Adapters
+    private lateinit var productAdapter: ProductoAdapter<HomeVerticalItemBinding>
     private lateinit var categoryAdapter: CategoryAdapter
 
 
@@ -69,24 +65,41 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProductRecycler() {
-        productAdapter = ProductAdapter(
-            onAddToCartClicked = { product ->
-                val user = userViewModel.loggedInUser.value
-                if (user != null) {
-                    carritoViewModel.addProduct(user.id, product.id)
-                    Toast.makeText(requireContext(), "${product.name} añadido al carrito", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Inicia sesión para añadir productos", Toast.LENGTH_SHORT).show()
+        productAdapter = ProductoAdapter(
+            // 1. Inflador del ViewBinding para cada item
+            bindingInflater = HomeVerticalItemBinding::inflate,
+            // 2. Lógica para enlazar datos y listeners
+            binder = { itemBinding, product ->
+                // Enlazar datos del producto
+                itemBinding.name.text = product.name
+                itemBinding.price.text = getString(R.string.currency_format, product.price)
+                itemBinding.rating.text = product.score.toString()
+                itemBinding.timing.text = product.score.toString()
+                product.iconResName?.let { itemBinding.verImg.setImageResource(it) }
+
+                // Listener para clic en toda la tarjeta -> abre detalles
+                itemBinding.root.setOnClickListener {
+                    val detailFragment = ProductDetailBottomSheet.newInstance(
+                        product.name,
+                        getString(R.string.currency_format, product.price),
+                        product.iconResName ?: R.drawable.ic_launcher_foreground,
+                        product.id,
+                        product.favorite
+                    )
+                    detailFragment.show(childFragmentManager, detailFragment.tag)
                 }
-            },
-            onItemClicked = { product ->
-                val detailFragment = ProductDetailBottomSheet.newInstance(
-                    product.name,
-                    getString(R.string.currency_format, product.price),
-                    product.iconResName ?: R.drawable.ic_launcher_foreground,
-                    product.id
-                )
-                detailFragment.show(childFragmentManager, detailFragment.tag)
+
+                // Listener para el botón de añadir al carrito
+                // IMPORTANTE: Asegúrate de que tu XML tiene un botón con id `add_to_cart_image`
+//                itemBinding.addToCartImage.setOnClickListener {
+//                    val user = userViewModel.loggedInUser.value
+//                    if (user != null) {
+//                        carritoViewModel.addProduct(user.id, product.id)
+//                        Toast.makeText(requireContext(), "${product.name} añadido al carrito", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(requireContext(), "Inicia sesión para añadir productos", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
             }
         )
 
@@ -138,7 +151,7 @@ class HomeFragment : Fragment() {
                 val greeting = if (user != null && user.displayName.isNotBlank()) {
                     "Hola ${user.displayName}"
                 } else {
-                    getString(com.example.maomakis.R.string.hola)
+                    getString(R.string.hola)
                 }
                 // textView7 es el título grande en Home
                 binding.textView7.text = greeting

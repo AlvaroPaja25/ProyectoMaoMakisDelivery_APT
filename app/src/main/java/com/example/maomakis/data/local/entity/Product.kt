@@ -23,5 +23,6 @@ data class Product(
     val name: String,
     val price: Double,
     val description: String?,
+    val tipoPlato: Int = 0,
     val iconResName: String?
 )

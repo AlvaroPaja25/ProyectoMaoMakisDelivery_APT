@@ -1,4 +1,4 @@
-package com.example.maomakis.ui.adapter
+package com.example.maomakis.ui.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

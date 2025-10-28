@@ -1,4 +1,4 @@
-package com.example.maomakis.ui.fragment.gallery
+package com.example.maomakis.ui.view.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

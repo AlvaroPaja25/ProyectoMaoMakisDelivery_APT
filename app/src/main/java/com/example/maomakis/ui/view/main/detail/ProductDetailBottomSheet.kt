@@ -50,7 +50,7 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
         val productName = args?.getString("PRODUCT_NAME") ?: "Pizza Error" // Default para debug
         val productPrice = args?.getString("PRODUCT_PRICE") ?: "$0.00"
         val productId = args?.getInt("PRODUCT_ID", -1) ?: -1
-        var isFavorite = args?.getBoolean("PRODUCT_FAVORITE", false) ?: false
+        var favorite = args?.getBoolean("PRODUCT_FAVORITE", false) ?: false
 
         binding.smallDetailImage.setImageResource(productImageResId)
         binding.detailTitle.text = productName
@@ -59,15 +59,15 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
         binding.detailRating.text = "5.0"
         binding.detailTiming.text = "10:00 - 23:00"
 
-        updateFavoriteIcon(isFavorite)
+        updateFavoriteIcon(favorite)
         binding.favoriteButton.setOnClickListener {
             val user = userViewModel.loggedInUser.value
             if (user != null) {
-                isFavorite = !isFavorite
+                favorite = !favorite
                 viewLifecycleOwner.lifecycleScope.launch {
-                    productViewModel.toggleFavorite(productId, isFavorite)
+                    productViewModel.toggleFavorite(productId, favorite)
                 }
-                updateFavoriteIcon(isFavorite)
+                updateFavoriteIcon(favorite)
             } else {
                 Toast.makeText(requireContext(), "Inicia sesión para usar favoritos", Toast.LENGTH_SHORT).show()
             }
@@ -86,8 +86,8 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
 
     }
 
-    private fun updateFavoriteIcon(isFavorite: Boolean) {
-        val iconRes = if (isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
+    private fun updateFavoriteIcon(favorite: Boolean) {
+        val iconRes = if (favorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
         binding.favoriteButton.setImageResource(iconRes)
     }
 
@@ -97,14 +97,14 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(name: String, price: String, imageResId: Int, productId: Int = -1, isFavorite: Boolean = false) =
+        fun newInstance(name: String, price: String, imageResId: Int, productId: Int = -1, favorite: Boolean = false) =
             ProductDetailBottomSheet().apply {
                 arguments = Bundle().apply {
                     putString("PRODUCT_NAME", name)
                     putString("PRODUCT_PRICE", price)
                     putInt("PRODUCT_IMAGE", imageResId)
                     putInt("PRODUCT_ID", productId)
-                    putBoolean("PRODUCT_FAVORITE", isFavorite)
+                    putBoolean("PRODUCT_FAVORITE", favorite)
                 }
             }
     }
