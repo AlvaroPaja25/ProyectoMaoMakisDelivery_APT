@@ -26,7 +26,7 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args = arguments
-        val productImageResId = args?.getInt("PRODUCT_IMAGE", R.drawable.dinner) ?: R.drawable.dinner
+        val productImageResId = args?.getInt("PRODUCT_IMAGE", R.drawable.dinnerdos) ?: R.drawable.dinnerdos
         val productName = args?.getString("PRODUCT_NAME") ?: "Pizza Error" // Default para debug
         val productPrice = args?.getString("PRODUCT_PRICE") ?: "$0.00"
 

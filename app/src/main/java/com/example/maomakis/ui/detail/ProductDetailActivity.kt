@@ -15,7 +15,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val productImageResId = intent.getIntExtra("PRODUCT_IMAGE", R.drawable.dinner)
+        val productImageResId = intent.getIntExtra("PRODUCT_IMAGE", R.drawable.dinnerdos)
 
         val productName = intent.getStringExtra("PRODUCT_NAME") ?: "Product"
         val productPrice = intent.getStringExtra("PRODUCT_PRICE") ?: "$0.00"
