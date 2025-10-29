@@ -28,7 +28,7 @@ class MiCarritoAdapter(
             binding.itemName.text = item.name
             binding.itemQuantity.text = item.cant.toString()
             binding.itemPrice.text = itemView.context.getString(R.string.currency_format, item.price)
-            binding.itemScore.text = item.score
+            binding.itemScore.text = item.rating.toString()
             binding.itemSubTotal.text = itemView.context.getString(R.string.currency_format, item.subTotal)
 
             item.iconResName?.let {

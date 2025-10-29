@@ -14,7 +14,7 @@ data class CarritoWithProductData(
     val price: Double,
     val iconResName: String?,
     val cant: Int,
-    val score: String
+    val rating: Double
 )
 
 @Dao
@@ -30,7 +30,7 @@ interface CarritoDAO {
             p.price, 
             p.iconResName, 
             c.cant, 
-            p.score
+            p.rating
         FROM carrito c 
         INNER JOIN product p ON c.productId = p.id 
         WHERE c.userId = :userId

@@ -76,18 +76,18 @@ abstract class AppDatabase : RoomDatabase() {
                 Category(id = 1, name = "Makis Clásicos", description = "Los favoritos de siempre", iconResName = "pizza"),
                 Category(id = 2, name = "Makis Especiales", description = "Combinaciones únicas", iconResName = "man"),
                 Category(id = 3, name = "Bebidas", description = "Para acompañar tu pedido", iconResName = "man"),
-                Category(id = 4, name = "Entradas", description = "Para abrir el apetito", iconResName = "man"),
+                Category(id = 4, name = "Entradas", description = "Para abrir el apetito", iconResName = "pizza"),
                 Category(id = 5, name = "Postres", description = "El toque dulce final", iconResName = "man")
             )
             categoryDao.insertAll(categories)
 
             // 3. Productos de ejemplo
             val products = listOf(
-                Product(id = 1,categoryId = 1,score = "8", name = "Maki Acevichado", price = 15.50, description = "Relleno de langostino, cubierto con atún y salsa acevichada.", tipoPlato = 1, iconResName = "fav1"),
-                Product(id = 2,categoryId = 1,score = "2", name = "California Roll", price = 12.00, description = "El clásico con palta, pepino y kanikama.", tipoPlato = 1, iconResName = "fav2"),
-                Product(id = 3,categoryId = 2,score = "8", name = "Volcano Roll", price = 18.00, description = "Maki empanizado con topping de mariscos flambeados.", tipoPlato = 1, iconResName = "fav3"),
-                Product(id = 4,categoryId = 3,score = "1", name = "Inca Kola 500ml", price = 5.00, description = "La bebida de sabor nacional.", tipoPlato = 1, iconResName = "man"),
-                Product(id = 5,categoryId = 4,score = "8", name = "Gyoza de Cerdo (5u)", price = 10.00, description = "Empanaditas japonesas al vapor.", tipoPlato = 1, iconResName = "lunch")
+                Product(id = 1,categoryId = 1,rating = 5.0, name = "Maki Acevichado", price = 15.50, description = "Relleno de langostino, cubierto con atún y salsa acevichada.", tipoPlato = 1, iconResName = "fav1"),
+                Product(id = 2,categoryId = 1,rating = 2.8, name = "California Roll", price = 12.00, description = "El clásico con palta, pepino y kanikama.", tipoPlato = 1, iconResName = "fav2"),
+                Product(id = 3,categoryId = 2,rating = 3.7, name = "Volcano Roll", price = 18.00, description = "Maki empanizado con topping de mariscos flambeados.", tipoPlato = 1, iconResName = "fav3"),
+                Product(id = 4,categoryId = 3,rating = 7.6, name = "Inca Kola 500ml", price = 5.00, description = "La bebida de sabor nacional.", tipoPlato = 1, iconResName = "man"),
+                Product(id = 5,categoryId = 4,rating = 1.2, name = "Gyoza de Cerdo (5u)", price = 10.00, description = "Empanaditas japonesas al vapor.", tipoPlato = 1, iconResName = "lunch")
             )
             productDao.insertAll(products)
         }

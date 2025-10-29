@@ -5,9 +5,7 @@ import android.content.Context
 import com.example.maomakis.data.local.dao.CarritoWithProductData
 import com.example.maomakis.data.local.entity.*
 import com.example.maomakis.domain.model.*
-/**
- * Convierte una entidad User de la base de datos a un UserModel para la UI.
- */
+
 fun User.toModel() = UserModel(
     id = id,
     displayName = name,
@@ -31,7 +29,7 @@ fun CarritoWithProductData.toModel(context: Context): CarritoModel {
         price = price,
         cant = cant,
         iconResName = iconResId,
-        score = score
+        rating = rating
     )
 }
 @SuppressLint("DiscouragedApi")
@@ -55,7 +53,7 @@ fun Product.toListModel(context: Context): ProductListModel {
         id = id,
         category = categoryId.toString(),
         favorite = favorite == 1,
-        score = score,
+        rating = rating,
         name = name,
         description = description,
         iconResName = iconResId,
@@ -67,7 +65,7 @@ fun ProductRegisterModel.toEntity() = Product(
     id = id,
     categoryId = categoryId,
     favorite = if (favorite) 1 else 0,
-    score = score,
+    rating = rating,
     name = name,
     description = description,
     iconResName = iconResName,
