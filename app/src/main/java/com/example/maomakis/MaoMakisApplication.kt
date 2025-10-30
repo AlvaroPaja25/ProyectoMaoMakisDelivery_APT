@@ -8,11 +8,13 @@ import com.example.maomakis.data.repository.CarritoRepositoryImpl
 import com.example.maomakis.data.repository.CategoryRepositoryImpl
 import com.example.maomakis.data.repository.ProductRepositoryImpl
 import com.example.maomakis.data.repository.UserRepositoryImpl
+import com.example.maomakis.data.repository.OrderRepositoryImpl
 import com.example.maomakis.domain.repository.AuthRepository
 import com.example.maomakis.domain.repository.CarritoRepository
 import com.example.maomakis.domain.repository.CategoryRepository
 import com.example.maomakis.domain.repository.ProductRepository
 import com.example.maomakis.domain.repository.UserRepository
+import com.example.maomakis.domain.repository.OrderRepository
 
 class MaoMakisApplication : Application() {
 //sdasd
@@ -30,6 +32,9 @@ class MaoMakisApplication : Application() {
 
     val carritoRepository: CarritoRepository by lazy {
         CarritoRepositoryImpl(db.carritoDao(), this)
+    }
+    val orderRepository: OrderRepository by lazy {
+        OrderRepositoryImpl(db.orderDao())
     }
 
     // Añadimos el repositorio de productos

@@ -41,4 +41,10 @@ class CarritoViewModel(
             carritoRepository.updateProductQuantity(userId, productId, newQuantity)
         }
     }
+
+    fun clearCart(userId: Int) {
+        viewModelScope.launch {
+            carritoRepository.clearCart(userId)
+        }
+    }
 }

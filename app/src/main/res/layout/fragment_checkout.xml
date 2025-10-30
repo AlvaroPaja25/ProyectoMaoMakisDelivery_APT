@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.main.CheckoutFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/checkout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hacer pedido"
+            android:textSize="22sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/input_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Dirección de entrega"
+            android:inputType="textPostalAddress"
+            android:imeOptions="actionDone"
+            app:layout_constraintTop_toBottomOf="@id/checkout_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/select_on_map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar en mapa"
+            app:layout_constraintTop_toBottomOf="@id/input_address"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/payment_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Método de pago"
+            app:layout_constraintTop_toBottomOf="@id/select_on_map_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/payment_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/payment_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RadioButton
+                android:id="@+id/payment_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectivo" />
+
+            <RadioButton
+                android:id="@+id/payment_card_visa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_key_24"
+                android:drawablePadding="8dp"
+                android:text="Tarjeta (Visa)" />
+
+            <RadioButton
+                android:id="@+id/payment_card_master"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_key_24"
+                android:drawablePadding="8dp"
+                android:text="Tarjeta (MasterCard)" />
+
+            <RadioButton
+                android:id="@+id/payment_yape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_key_24"
+                android:drawablePadding="8dp"
+                android:text="Yape/Plin" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/payment_cards_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/payment_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_payment_cash"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="8dp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
+                app:strokeColor="@color/black">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/efectivo"
+                        app:riv_corner_radius="14dp"/>
+                    <TextView
+                        android:id="@+id/label_payment_cash"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:text="Efectivo"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_payment_visa"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="8dp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
+                app:strokeColor="@color/black">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/visa"
+                        app:riv_corner_radius="14dp"/>
+                    <TextView
+                        android:id="@+id/label_payment_visa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:text="Tarjeta (Visa)"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_payment_master"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="8dp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
+                app:strokeColor="@color/black">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mastercard"
+                        app:riv_corner_radius="14dp"/>
+                    <TextView
+                        android:id="@+id/label_payment_master"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:text="Tarjeta (MasterCard)"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_payment_yape"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="8dp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp"
+                app:strokeColor="@color/black">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/yapeplin"
+                        app:riv_corner_radius="14dp"/>
+                    <TextView
+                        android:id="@+id/label_payment_yape"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:text="Yape/Plin"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/delivery_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiempo de entrega"
+            app:layout_constraintTop_toBottomOf="@id/payment_cards_container"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/delivery_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/delivery_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RadioButton
+                android:id="@+id/delivery_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prioritaria (S/ 12.00)" />
+
+            <RadioButton
+                android:id="@+id/delivery_basic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Básica (S/ 8.00)" />
+
+            <RadioButton
+                android:id="@+id/delivery_economic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Económica (S/ 5.00)" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalles del pedido"
+            app:layout_constraintTop_toBottomOf="@id/delivery_group"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/order_details_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/details_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            app:cardUseCompatPadding="true">
+            <TextView
+                android:id="@+id/order_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:fontFamily="monospace"
+                android:textSize="14sp"
+                android:text=""/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/total_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: $0.00"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/order_details_card"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/place_order_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hacer pedido"
+            app:layout_constraintTop_toBottomOf="@id/total_checkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

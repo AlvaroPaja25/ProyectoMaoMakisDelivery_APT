@@ -12,6 +12,7 @@ import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.CategoryViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
+import com.example.maomakis.ui.viewmodel.OrderViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(
@@ -38,6 +39,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(CategoryViewModel::class.java) -> {
                 CategoryViewModel(app.categoryRepository) as T
+            }
+            modelClass.isAssignableFrom(OrderViewModel::class.java) -> {
+                OrderViewModel(app.orderRepository, app.carritoRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

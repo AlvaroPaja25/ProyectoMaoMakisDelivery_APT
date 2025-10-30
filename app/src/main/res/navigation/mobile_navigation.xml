@@ -27,4 +27,32 @@
         android:name="com.example.maomakis.ui.view.main.MiCarritoFragment"
         android:label="@string/mi_carta"
         tools:layout="@layout/fragment_carrito" />
+
+    <fragment
+        android:id="@+id/nav_checkout"
+        android:name="com.example.maomakis.ui.view.main.CheckoutFragment"
+        android:label="Hacer pedido"
+        tools:layout="@layout/fragment_checkout" />
+
+    <fragment
+        android:id="@+id/nav_map_picker"
+        android:name="com.example.maomakis.ui.view.main.MapPickerFragment"
+        android:label="Seleccionar dirección"
+        tools:layout="@layout/fragment_map_picker" />
+
+    <fragment
+        android:id="@+id/nav_orders"
+        android:name="com.example.maomakis.ui.view.main.OrdersFragment"
+        android:label="Mis pedidos"
+        tools:layout="@layout/fragment_orders" />
+
+    <dialog
+        android:id="@+id/nav_order_confirmation"
+        android:name="com.example.maomakis.ui.view.main.OrderConfirmationFragment"
+        android:label="Pedido confirmado"
+        tools:layout="@layout/fragment_order_confirmation">
+        <argument
+            android:name="orderId"
+            app:argType="long" />
+    </dialog>
 </navigation>

@@ -14,6 +14,7 @@ import com.example.maomakis.ui.view.adapter.MiCarritoAdapter
 import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -51,6 +52,12 @@ class MiCarritoFragment : Fragment() {
             // Ahora que tenemos un usuario y su ID, configuramos la UI
             setupRecyclerView(user.id)
             observeCartItems(user.id)
+            binding.makeOrderButton.setOnClickListener {
+                // Si hay items en el carrito, navegamos al checkout
+                if (miCarritoAdapter.currentList.isNotEmpty()) {
+                    findNavController().navigate(R.id.nav_checkout)
+                }
+            }
         }
     }
 

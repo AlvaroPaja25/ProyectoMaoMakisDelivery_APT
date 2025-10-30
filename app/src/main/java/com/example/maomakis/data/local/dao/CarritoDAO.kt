@@ -44,6 +44,9 @@ interface CarritoDAO {
     @Query("DELETE FROM carrito WHERE userId = :userId AND productId = :productId")
     suspend fun deleteItem(userId: Int, productId: Int)
 
+    @Query("DELETE FROM carrito WHERE userId = :userId")
+    suspend fun clearCart(userId: Int)
+
     @Query("SELECT * FROM carrito WHERE userId = :userId AND productId = :productId LIMIT 1")
     suspend fun getItem(userId: Int, productId: Int): Carrito?
 }

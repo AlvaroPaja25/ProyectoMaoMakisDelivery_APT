@@ -39,4 +39,8 @@ class CarritoRepositoryImpl(
             dao.upsertItem(Carrito(userId = userId, productId = productId, cant = newQuantity))
         }
     }
+
+    override suspend fun clearCart(userId: Int) {
+        dao.clearCart(userId)
+    }
 }

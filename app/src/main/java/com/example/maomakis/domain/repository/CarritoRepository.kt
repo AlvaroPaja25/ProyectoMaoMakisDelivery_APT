@@ -9,5 +9,6 @@ interface CarritoRepository {
     suspend fun addProductToCart(userId: Int, productId: Int)
     suspend fun removeProductFromCart(userId: Int, productId: Int)
     suspend fun updateProductQuantity(userId: Int, productId: Int, newQuantity: Int)
+    suspend fun clearCart(userId: Int)
 
 }
