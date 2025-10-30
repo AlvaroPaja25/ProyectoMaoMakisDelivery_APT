@@ -21,6 +21,10 @@ import com.example.maomakis.ui.viewmodel.CarritoViewModel
 import com.example.maomakis.ui.viewmodel.ProductViewModel
 import com.example.maomakis.ui.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
+import android.view.inputmethod.EditorInfo
+import android.view.MotionEvent
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 
 class HomeFragment : Fragment() {
 
@@ -30,6 +34,50 @@ class HomeFragment : Fragment() {
     // ViewModels
     private val productViewModel: ProductViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
+    }
+
+    private var searchJob: Job? = null
+
+    private fun setupSearch() {
+        binding.searchEditText.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val q = v.text.toString().trim()
+                if (q.isNotEmpty()) performSearch(q) else clearToDefault()
+                true
+            } else false
+        }
+        binding.searchEditText.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawable = binding.searchEditText.compoundDrawablesRelative[2]
+                if (drawable != null) {
+                    val touchAreaStart = binding.searchEditText.width - binding.searchEditText.paddingEnd - drawable.bounds.width()
+                    if (event.x >= touchAreaStart) {
+                        val q = binding.searchEditText.text.toString().trim()
+                        if (q.isNotEmpty()) performSearch(q) else clearToDefault()
+                        return@setOnTouchListener true
+                    }
+                }
+            }
+            false
+        }
+    }
+
+    private fun performSearch(query: String) {
+        searchJob?.cancel()
+        searchJob = viewLifecycleOwner.lifecycleScope.launch {
+            productViewModel.searchProducts(query).collectLatest { products ->
+                productAdapter.submitList(products)
+            }
+        }
+    }
+
+    private fun clearToDefault() {
+        searchJob?.cancel()
+        viewLifecycleOwner.lifecycleScope.launch {
+            productViewModel.getProductsTop10ByRating().collectLatest { products ->
+                productAdapter.submitList(products)
+            }
+        }
     }
     private val categoryViewModel: CategoryViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application, requireActivity())
@@ -62,6 +110,7 @@ class HomeFragment : Fragment() {
         setupCategoryRecycler()
         observeCategories()
         observeUserGreeting()
+        setupSearch()
     }
 
     private fun setupProductRecycler() {

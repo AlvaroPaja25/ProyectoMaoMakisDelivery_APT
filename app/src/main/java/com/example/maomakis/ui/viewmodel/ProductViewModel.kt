@@ -45,4 +45,7 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
     fun observeProductById(productId: Int): StateFlow<ProductListModel?> =
         productRepository.getProductById(productId)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(2000), null)
+
+    fun searchProducts(query: String): Flow<List<ProductListModel>> =
+        productRepository.searchProducts(query)
 }

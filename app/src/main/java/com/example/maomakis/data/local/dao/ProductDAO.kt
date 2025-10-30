@@ -48,4 +48,7 @@ interface ProductDAO {
 
     @Query("SELECT * FROM product ORDER BY rating DESC LIMIT 5")
     fun getTopByRating(): Flow<List<Product>>
+
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%' ORDER BY name ASC")
+    fun search(query: String): Flow<List<Product>>
 }

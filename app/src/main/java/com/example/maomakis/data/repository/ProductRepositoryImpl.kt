@@ -54,4 +54,7 @@ class ProductRepositoryImpl(
     override suspend fun setFavorite(productId: Int, favorite: Boolean) {
         dao.setFavorite(productId, if (favorite) 1 else 0)
     }
+
+    override fun searchProducts(query: String): Flow<List<ProductListModel>> =
+        dao.search(query).map { list -> list.map { it.toListModel(context) } }
 }
