@@ -58,6 +58,9 @@ class MiCarritoFragment : Fragment() {
                     findNavController().navigate(R.id.nav_checkout)
                 }
             }
+            binding.clearCartButton.setOnClickListener {
+                carritoViewModel.clearCart(user.id)
+            }
         }
     }
 
@@ -89,6 +92,9 @@ class MiCarritoFragment : Fragment() {
 
                 val total = cartItems.sumOf { it.subTotal }
                 binding.totalAmount.text = getString(R.string.currency_format, total)
+
+                // Opcional: Ocultar el botón si el carrito está vacío
+                binding.clearCartButton.visibility = if (cartItems.isEmpty()) View.GONE else View.VISIBLE
             }
         }
     }

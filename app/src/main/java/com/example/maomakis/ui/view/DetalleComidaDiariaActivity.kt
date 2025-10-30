@@ -47,11 +47,20 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
             "almuerzo" -> 2
             "cena" -> 3
             "dulces" -> 4
+            "café" -> 5
             else -> null
         }
 
-        if (type == "dulces") {
-            imageView.setImageResource(R.drawable.sweets)
+        val imageRes = when(type) {
+            "desayuno" -> R.drawable.breakfast
+            "almuerzo" -> R.drawable.lunch
+            "cena" -> R.drawable.dinner
+            "dulces" -> R.drawable.sweets
+            "café" -> R.drawable.coffe
+            else -> 0
+        }
+        if (imageRes != 0) {
+            imageView.setImageResource(imageRes)
         }
 
         tipoPlato?.let { tipo ->
