@@ -31,8 +31,8 @@ class FavoritoFragment : Fragment() {
         viewPager2.adapter = fragmentAdapter
 
         tabLayout.addTab(tabLayout.newTab().setText("Destacado"))
-        tabLayout.addTab(tabLayout.newTab().setText("Popular"))
         tabLayout.addTab(tabLayout.newTab().setText("Nuevo"))
+        tabLayout.addTab(tabLayout.newTab().setText("Mis Favoritos"))
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

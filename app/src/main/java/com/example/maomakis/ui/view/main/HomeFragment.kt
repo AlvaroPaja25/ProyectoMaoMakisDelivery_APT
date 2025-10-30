@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maomakis.R
 import com.example.maomakis.databinding.FragmentHomeBinding
-import com.example.maomakis.databinding.HomeVerticalItemBinding
+import com.example.maomakis.databinding.ItemHomeProductBinding
 import com.example.maomakis.ui.view.adapter.CategoryAdapter
 import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.view.adapter.ProductoAdapter
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     private lateinit var carritoViewModel: CarritoViewModel
 
     // Adapters
-    private lateinit var productAdapter: ProductoAdapter<HomeVerticalItemBinding>
+    private lateinit var productAdapter: ProductoAdapter<ItemHomeProductBinding>
     private lateinit var categoryAdapter: CategoryAdapter
 
 
@@ -67,14 +67,14 @@ class HomeFragment : Fragment() {
     private fun setupProductRecycler() {
         productAdapter = ProductoAdapter(
             // 1. Inflador del ViewBinding para cada item
-            bindingInflater = HomeVerticalItemBinding::inflate,
+            bindingInflater = ItemHomeProductBinding::inflate,
             // 2. Lógica para enlazar datos y listeners
             binder = { itemBinding, product ->
                 // Enlazar datos del producto
                 itemBinding.name.text = product.name
                 itemBinding.price.text = getString(R.string.currency_format, product.price)
-                itemBinding.rating.text = product.score.toString()
-                itemBinding.timing.text = product.score.toString()
+                itemBinding.rating.text = product.rating.toString()
+                itemBinding.timing.text = product.rating.toString()
                 product.iconResName?.let { itemBinding.verImg.setImageResource(it) }
 
                 // Listener para clic en toda la tarjeta -> abre detalles

@@ -11,9 +11,9 @@ class FragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            1 -> DestacadoFavFragment()
+            1 -> NuevoFavFragment()
             2 -> MisFavFragment()
-            else -> NuevoFavFragment()
+            else -> DestacadoFavFragment()
         }
     }
     override fun getItemCount(): Int {

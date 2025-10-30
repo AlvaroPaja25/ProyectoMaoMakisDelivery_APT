@@ -6,7 +6,7 @@ data class CarritoModel(
     val price: Double,
     val cant: Int,
     val iconResName: Int?,
-    val score: String
+    val rating: Double
 ) {
     val subTotal: Double
         get() = price * cant

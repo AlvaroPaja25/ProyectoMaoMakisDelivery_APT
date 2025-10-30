@@ -70,4 +70,8 @@
     <string name="buscar_tu_comida">Buscar tu comida</string>
     <string name="hola">Hola</string>
     <string name="agregar_al_carrito">Agregar al carrito</string>
+    <string name="descripcion">descripcion</string>
+    <string name="precio">192</string>
+    <string name="nombre_de_la_comida">Nombre de la comida</string>
+    <string name="ver_detalles">Ver Detalles</string>
 </resources>

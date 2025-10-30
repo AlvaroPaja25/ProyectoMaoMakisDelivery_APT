@@ -19,10 +19,22 @@ class ProductRepositoryImpl(
         dao.getAll().map { list -> list.map { it.toListModel(context) } }
 
     override fun getProductsByCategory(categoryId: Int): Flow<List<ProductListModel>> =
-        dao.getByCategory(categoryId).map { list -> list.map { it.toListModel(context) } }
+        dao.getAllByCategory(categoryId).map { list -> list.map { it.toListModel(context) } }
+
+    override fun getProductsTop10ByRating(): Flow<List<ProductListModel>> =
+        dao.getTopByRating().map { list -> list.map { it.toListModel(context) } }
+
+    override suspend fun getProductsLast10Added(): List<ProductListModel> {
+        return dao.getLast10Added().map { it.toListModel(context)}
+    }
+
+    override suspend fun getProductsByTipoPlato(tipoPlato: Int): List<ProductListModel> {
+        return dao.getAllByTipoPlato(tipoPlato).map {  it.toListModel(context) }
+    }
+
 
     override fun getFavoriteProducts(): Flow<List<ProductListModel>> =
-        dao.getFavorites().map { list -> list.map { it.toListModel(context) } }
+        dao.getAllFavorites().map { list -> list.map { it.toListModel(context) } }
 
     override fun getProductById(productId: Int): Flow<ProductListModel?> =
         dao.getById(productId).map { it?.toListModel(context) }

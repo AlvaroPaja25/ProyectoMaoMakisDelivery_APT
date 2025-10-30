@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.maomakis.databinding.HomeHorizontalItemBinding
+import com.example.maomakis.databinding.ItemHomeCategoryBinding
 import com.example.maomakis.domain.model.CategoryListModel
 import com.example.maomakis.R
 
@@ -24,7 +24,7 @@ class CategoryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = HomeHorizontalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -32,7 +32,7 @@ class CategoryAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: HomeHorizontalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemHomeCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CategoryListModel) {
             binding.horText.text = item.name
             item.iconResName?.let {

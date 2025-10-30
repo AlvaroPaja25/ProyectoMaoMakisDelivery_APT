@@ -1,28 +1,111 @@
 package com.example.maomakis.ui.view.main.favorito.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maomakis.R
-
+import com.example.maomakis.databinding.FragmentFavMisBinding
+import com.example.maomakis.databinding.ItemFavoritoBinding
+import com.example.maomakis.ui.factory.ViewModelFactory
+import com.example.maomakis.ui.view.adapter.ProductoAdapter
+import com.example.maomakis.ui.viewmodel.CarritoViewModel
+import com.example.maomakis.ui.viewmodel.ProductViewModel
+import com.example.maomakis.ui.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 class MisFavFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentFavMisBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val productViewModel: ProductViewModel by activityViewModels {
+        ViewModelFactory(requireActivity().application, requireActivity())
+    }
+    private val userViewModel: UserViewModel by activityViewModels {
+        ViewModelFactory(requireActivity().application, requireActivity())
+    }
+    private lateinit var carritoViewModel: CarritoViewModel
+    private lateinit var productAdapter: ProductoAdapter<ItemFavoritoBinding>
 
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavMisBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fav_mis, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val factory = ViewModelFactory(requireActivity().application, this)
+        carritoViewModel = ViewModelProvider(this, factory)[CarritoViewModel::class.java]
+
+        setupProductRecycler()
+        observeFavorites()
+    }
+
+    private fun setupProductRecycler() {
+        productAdapter = ProductoAdapter(
+            bindingInflater = ItemFavoritoBinding::inflate,
+            binder = { itemBinding, product ->
+                // Enlazar datos del producto
+                itemBinding.idName.text = product.name
+                itemBinding.idDescription.text = product.description
+                itemBinding.idPrice.text = getString(R.string.currency_format, product.price)
+                itemBinding.idRating.text = product.rating.toString()
+                product.iconResName?.let { itemBinding.img.setImageResource(it) }
+                itemBinding.favoriteButton.setImageResource(
+                    if (product.favorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
+                )
+                // Click para toggle favorito: delegamos al ViewModel
+                itemBinding.favoriteButton.setOnClickListener {
+                    // Opcional: validar sesión primero
+                    val user = userViewModel.loggedInUser.value
+                    if (user != null) {
+                        productViewModel.toggleFavorite(product.id, product.favorite)
+                    } else {
+                        Toast.makeText(requireContext(), "Inicia sesión para añadir a favoritos", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                itemBinding.addToCartButton.setOnClickListener {
+                    val user = userViewModel.loggedInUser.value
+                    if (product.id > 0 && user != null) {
+                        carritoViewModel.addProduct(user.id, product.id)
+                        Toast.makeText(requireContext(), "${product.name} añadido al carrito", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Inicia sesión para añadir productos", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        )
+
+        binding.recyclerViewMiFavorito.apply {
+            adapter = productAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun observeFavorites() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.favoriteProducts.collect { products ->
+                    productAdapter.submitList(products)
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

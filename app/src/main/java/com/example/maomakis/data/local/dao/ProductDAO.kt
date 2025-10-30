@@ -12,23 +12,40 @@ import kotlinx.coroutines.flow.Flow
 interface ProductDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(product: Product): Long
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(product: List<Product>)
+
     @Update
     suspend fun update(product: Product)
+
     @Query("DELETE FROM product WHERE id = :id")
     suspend fun delete(id: Int)
-    @Query("SELECT * FROM product ORDER BY name ASC")
-    fun getAll(): Flow<List<Product>>
-    @Query("SELECT * FROM product WHERE categoryId = :categoryId ORDER BY name ASC")
-    fun getByCategory(categoryId: Int): Flow<List<Product>>
-    @Query("SELECT * FROM product WHERE favorite = 1 ORDER BY name ASC")
-    fun getFavorites(): Flow<List<Product>>
-    @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
-    fun getById(id: Int): Flow<Product?>
+
     @Query("UPDATE product SET favorite = :favorite WHERE id = :id")
     suspend fun setFavorite(id: Int, favorite: Int)
 
     @Query("SELECT COUNT(*) FROM product")
     suspend fun count(): Int
+
+    @Query("SELECT * FROM product ORDER BY name ASC")
+    fun getAll(): Flow<List<Product>>
+
+    @Query("SELECT * FROM product WHERE categoryId = :categoryId ORDER BY name ASC")
+    fun getAllByCategory(categoryId: Int): Flow<List<Product>>
+
+    @Query("SELECT * FROM product WHERE favorite = 1 ORDER BY name ASC")
+    fun getAllFavorites(): Flow<List<Product>>
+
+    @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
+    fun getById(id: Int): Flow<Product?>
+
+    @Query("SELECT * FROM product ORDER BY id DESC LIMIT 10")
+    suspend fun getLast10Added(): List<Product>
+
+    @Query("SELECT * FROM product WHERE tipoPlato = :tipoPlato ORDER BY id")
+    fun getAllByTipoPlato(tipoPlato: Int): List<Product>
+
+    @Query("SELECT * FROM product ORDER BY rating DESC LIMIT 5")
+    fun getTopByRating(): Flow<List<Product>>
 }
