@@ -28,9 +28,9 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
         return productRepository.getProductsLast10Added()
     }
 
-    fun getProductsByTipoPlato(tipoPlato: Int): Flow<List<ProductListModel>> =
-        productRepository.getProductsByTipoPlato(tipoPlato)
-
+    suspend fun getProductsByTipoPlato(tipoPlato: Int): List<ProductListModel> {
+        return productRepository.getProductsByTipoPlato(tipoPlato)
+    }
 
     fun toggleFavorite(productId: Int, currentIsFavorite: Boolean) {
         viewModelScope.launch {

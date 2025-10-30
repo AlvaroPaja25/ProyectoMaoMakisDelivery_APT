@@ -44,7 +44,7 @@ interface ProductDAO {
     suspend fun getLast10Added(): List<Product>
 
     @Query("SELECT * FROM product WHERE tipoPlato = :tipoPlato ORDER BY id")
-    fun getAllByTipoPlato(tipoPlato: Int): Flow<List<Product>>
+    fun getAllByTipoPlato(tipoPlato: Int): List<Product>
 
     @Query("SELECT * FROM product ORDER BY rating DESC LIMIT 5")
     fun getTopByRating(): Flow<List<Product>>

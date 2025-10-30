@@ -1,29 +1,39 @@
 package com.example.maomakis.ui.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maomakis.R
 import com.example.maomakis.domain.modelss.DetalleDiarioModel
+import com.example.maomakis.ui.factory.ViewModelFactory
 import com.example.maomakis.ui.view.adapter.DetalleDiarioAdapter
+import com.example.maomakis.ui.viewmodel.ProductViewModel
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
 class DetalleComidaDiariaActivity : AppCompatActivity() {
     //asdasdasd
+    private val productViewModel: ProductViewModel by viewModels {
+        ViewModelFactory(application, this)
+    }
     private lateinit var recyclerView: RecyclerView
     private lateinit var detalleDiarioModelList: MutableList<DetalleDiarioModel>
     private lateinit var diarioAdapter: DetalleDiarioAdapter
     private lateinit var imageView: ImageView
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detalle_comida_diaria)
 
-        val type = intent.getStringExtra("type")
-
+        val type = intent.getStringExtra("type")?.lowercase()
         recyclerView = findViewById(R.id.detailed_rec)
         imageView = findViewById(R.id.detailed_img)
 
@@ -32,76 +42,34 @@ class DetalleComidaDiariaActivity : AppCompatActivity() {
         diarioAdapter = DetalleDiarioAdapter(this, detalleDiarioModelList)
         recyclerView.adapter = diarioAdapter
 
-        when (type?.lowercase()) {
-            "desayuno" -> {
-                detalleDiarioModelList.add(
-                    DetalleDiarioModel(
-                        R.drawable.fav1,
-                        "Desayuno",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
-                    )
-                )
-                detalleDiarioModelList.add(
-                    DetalleDiarioModel(
-                        R.drawable.fav2,
-                        "Desayuno",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
-                    )
-                )
-                detalleDiarioModelList.add(
-                    DetalleDiarioModel(
-                        R.drawable.fav3,
-                        "Desayuno",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
-                    )
-                )
-                diarioAdapter.notifyDataSetChanged()
-            }
+        val tipoPlato = when (type) {
+            "desayuno" -> 1
+            "almuerzo" -> 2
+            "cena" -> 3
+            "dulces" -> 4
+            else -> null
         }
 
-        when (type?.lowercase()) {
-            "dulces" -> {
-                imageView.setImageResource(R.drawable.sweets)
+        if (type == "dulces") {
+            imageView.setImageResource(R.drawable.sweets)
+        }
 
-                detalleDiarioModelList.add(
+        tipoPlato?.let { tipo ->
+            lifecycleScope.launch {
+                val productos = productViewModel.getProductsByTipoPlato(tipo)
+                val mapped = productos.map {
                     DetalleDiarioModel(
-                        R.drawable.s1,
-                        "Dulces",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
+                        imagen = it.iconResName
+                            ?: R.drawable.ic_launcher_foreground, // Usa un ícono por defecto si es null
+                        nombre = it.name,
+                        descripcion = it.description ?: "Sin descripción",
+                        calificacion = it.rating.toString(),
+                        precio = it.price.toString(),
+                        tiempo = "10 a 9" // Puedes adaptar esto si tienes un campo real
                     )
-                )
-                detalleDiarioModelList.add(
-                    DetalleDiarioModel(
-                        R.drawable.s2,
-                        "Dulces",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
-                    )
-                )
-                detalleDiarioModelList.add(
-                    DetalleDiarioModel(
-                        R.drawable.s3,
-                        "Dulces",
-                        "Descripción",
-                        "4.4",
-                        "40",
-                        "10 a 9"
-                    )
-                )
+                }
+                detalleDiarioModelList.clear()
+                detalleDiarioModelList.addAll(mapped)
                 diarioAdapter.notifyDataSetChanged()
             }
         }

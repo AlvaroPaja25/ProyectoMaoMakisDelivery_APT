@@ -28,8 +28,10 @@ class ProductRepositoryImpl(
         return dao.getLast10Added().map { it.toListModel(context)}
     }
 
-    override fun getProductsByTipoPlato(tipoPlato: Int): Flow<List<ProductListModel>> =
-       dao.getAllByTipoPlato(tipoPlato).map { list -> list.map { it.toListModel(context) } }
+    override suspend fun getProductsByTipoPlato(tipoPlato: Int): List<ProductListModel> {
+        return dao.getAllByTipoPlato(tipoPlato).map {  it.toListModel(context) }
+    }
+
 
     override fun getFavoriteProducts(): Flow<List<ProductListModel>> =
         dao.getAllFavorites().map { list -> list.map { it.toListModel(context) } }
